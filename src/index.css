@@ -18,7 +18,7 @@
   align-content: center;
 }
 
-* , *::before,*::after {
-  /*выделение всех границ*/
+/* * , *::before,*::after {
     outline: 1px solid red
   };
+*/
