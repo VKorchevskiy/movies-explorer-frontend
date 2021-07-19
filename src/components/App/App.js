@@ -1,11 +1,13 @@
 import './App.css';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
+import Promo from '../Promo/Promo';
 
 function App() {
   return (
-    <div className="app">
-      <PageNotFound />
-    </div>
+    <>
+      {/* <PageNotFound /> */}
+      <Promo />
+    </>
   );
 }
 
