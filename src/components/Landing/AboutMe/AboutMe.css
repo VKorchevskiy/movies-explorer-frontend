@@ -1,0 +1,128 @@
+.about-me {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.about-me__avatar {
+  height: 352px;
+  width: 292px;
+  border-radius: 10px;
+  object-fit: cover
+}
+
+.about-me__description {
+  height: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.about-me__name {
+  margin: 0 0 20px 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+.about-me__text {
+  margin: 0 0 20px 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.about-me__text:last-of-type {
+  margin-bottom: 40px;
+}
+
+.about-me__text_profession {
+  font-weight: 500;
+}
+
+.about-me__socials {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.about-me__social {
+  list-style: none;
+  margin: 0 26px 0 0;
+  padding: 0;
+}
+
+.about-me__social:last-of-type {
+  margin-right: 0;
+}
+
+.about-me__link {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+@media screen and (min-width: 768px) {
+  .about-me {
+    flex-direction: row-reverse;
+    justify-content: space-between
+  }
+  .about-me__avatar {
+    height: 307px;
+    width: 255px;
+  }
+  .about-me__description {
+    margin-top: 0;
+    height: 100%;
+  }
+  .about-me__name {
+    margin-bottom: 16px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+    width: calc(100vw * 364 / 768);
+  }
+  .about-me__text:last-of-type {
+    margin-bottom: 0;
+  }
+  .about-me__socials {
+  }
+  .about-me__social {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .about-me__avatar {
+    height: 327px;
+    width: 270px;
+  }
+  .about-me__name {
+    margin-bottom: 18px;
+    font-size: 50px;
+    line-height: 58px;
+  }
+  .about-me__text {
+    font-size: 14px;
+    line-height: 22px;
+    width: 600px;
+  }
+  .about-me__text_profession {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
