@@ -11,7 +11,23 @@ const projectCards = [
 
 const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
 
+const portfolioCards = [
+  {
+    description: 'Статичный сайт',
+    link: 'https://vkorchevskiy.github.io/how-to-learn/index.html',
+  },
+  {
+    description: 'Адаптивный сайт',
+    link: 'https://vkorchevskiy.github.io/russian-travel/index.html',
+  },
+  {
+    description: 'Одностраничное приложение',
+    link: 'https://github.com/VKorchevskiy/mesto-react',
+  },
+];
+
 export {
   projectCards,
   techs,
-}
+  portfolioCards,
+};
