@@ -1,0 +1,61 @@
+.tech-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tech-cards__title {
+  margin: 0 0 24px;
+  padding: 0;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.tech-cards__description {
+  margin: 0 0 50px;
+  padding: 0;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.tech-cards__list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 84px 84px;
+  gap: 10px;
+  list-style-type: none;
+}
+
+@media screen and (min-width: 768px) {
+  .tech-cards__title {
+    margin: 0 0 22px;
+    width: 600px;
+    font-size: 50px;
+    line-height: 58px;
+  }
+  .tech-cards__description {
+    margin: 0 0 83px;
+    width: 460px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .tech-cards__list {
+    grid-template-columns: repeat(7, 84px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .tech-cards__title {
+    margin: 0 0 26px;
+  }
+  .tech-cards__description {
+    margin: 0 0 100px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

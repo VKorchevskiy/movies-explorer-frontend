@@ -6,6 +6,10 @@
   margin-top: 60px;
 }
 
+.tech-cards {
+  margin-top: 60px;
+}
+
 @media screen and (min-width: 768px) {
   .landing__project-cards {
     margin-top: 70px;
@@ -13,10 +17,16 @@
   .landing__time-line {
     margin-top: 93px;
   }
+  .tech-cards {
+    margin-top: 80px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
   .landing__time-line {
     margin-top: 110px;
+  }
+  .tech-cards {
+    margin-top: 90px;
   }
 }
