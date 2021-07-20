@@ -1,0 +1,43 @@
+.project-card {}
+
+.project-card__subtitle {
+  margin: 0;
+  padding: 0 0 16px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.project-card__description {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .project-card:last-of-type {
+    margin-top: 0;
+  }
+  .project-card__subtitle {
+    padding-bottom: 22px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .project-card__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .about-project__subtitle {
+    padding-bottom: 26px;
+  }
+  .about-project__description {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

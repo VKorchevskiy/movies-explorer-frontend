@@ -1,0 +1,21 @@
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 56px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@media screen and (min-width: 768px) {
+  .project-cards {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .project-cards {
+    column-gap: 40px;
+  }
+}
