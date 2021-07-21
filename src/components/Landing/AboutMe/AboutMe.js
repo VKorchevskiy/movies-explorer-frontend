@@ -2,9 +2,9 @@ import './AboutMe.css';
 import React from 'react';
 import avatar from '../../../images/avatar.jpg';
 
-function AboutMe() {
+function AboutMe({ classPosition }) {
   return (
-    <div className="about-me">
+    <div className={`about-me ${classPosition}`}>
       <img className="about-me__avatar" src={avatar} alt="Владимир" />
       <div className="about-me__description">
         <div className="about-me__texts">

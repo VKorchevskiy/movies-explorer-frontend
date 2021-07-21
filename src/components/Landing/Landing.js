@@ -20,8 +20,8 @@ function Landing() {
         <Techs />
       </Section> */}
 
-      <Section title={'Студент'}>
-        <AboutMe />
+      <Section title={'Студент'} classPosition={'landing__student'}>
+        <AboutMe classPosition={'landing__about-me'} />
         <Portfolio classPosition={'landing__portfolio'} />
       </Section>
     </>

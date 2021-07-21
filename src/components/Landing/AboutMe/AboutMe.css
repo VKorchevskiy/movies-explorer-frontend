@@ -1,7 +1,7 @@
 .about-me {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
 }
 
 .about-me__avatar {
@@ -12,11 +12,9 @@
 }
 
 .about-me__description {
-  height: 100%;
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -76,15 +74,15 @@
 @media screen and (min-width: 768px) {
   .about-me {
     flex-direction: row-reverse;
-    justify-content: space-between
+    justify-content: space-between;
   }
   .about-me__avatar {
     height: 307px;
     width: 255px;
   }
   .about-me__description {
+    min-height: 307px;
     margin-top: 0;
-    height: 100%;
   }
   .about-me__name {
     margin-bottom: 16px;
@@ -110,6 +108,9 @@
   .about-me__avatar {
     height: 327px;
     width: 270px;
+  }
+  .about-me__description {
+    min-height: 327px;
   }
   .about-me__name {
     margin-bottom: 18px;

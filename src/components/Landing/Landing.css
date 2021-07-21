@@ -9,8 +9,15 @@
 .tech-cards {
   margin-top: 60px;
 }
-.landing__techs {
 
+.landing__techs {}
+
+.landing__student {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.landing__about-me {
+  margin-top: 60px;
 }
 .landing__portfolio {
   margin-top: 69px;
@@ -29,6 +36,13 @@
   .landing__techs {
     background: #272727;
   }
+  .landing__student {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .landing__about-me {
+    margin-top: 66px;
+  }
   .landing__portfolio {
     margin-top: 90px;
   }
@@ -40,6 +54,10 @@
   }
   .tech-cards {
     margin-top: 90px;
+  }
+  .landing__student {
+    padding-left: 70px;
+    padding-right: 70px;
   }
   .landing__portfolio {
     margin-top: 100px;
