@@ -1,9 +1,9 @@
 import './TitleSection.css';
 import React from 'react';
 
-function TitleSection({ title }) {
+function TitleSection({ title, bookmark }) {
   return (
-    <h2 className="title">{title}</h2>
+    <h2 id={bookmark} className="title">{title}</h2>
   )
 }
 
