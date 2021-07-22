@@ -26,7 +26,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 84px 84px;
+  grid-template-columns: repeat(2, 84px);
   gap: 10px;
   list-style-type: none;
 }

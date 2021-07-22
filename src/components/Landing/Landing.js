@@ -14,7 +14,7 @@ function Landing() {
     <>
       <Promo />
       <NavTab />
-      <Section title={'О проекте'} bookmark={'about-project'}>
+      <Section title={'О проекте'} classPosition={'landing__about-project'} bookmark={'about-project'}>
         <ProjectCards classPosition={'landing__project-cards'} />
         <TimeLine classPosition={'landing__time-line'} />
       </Section>

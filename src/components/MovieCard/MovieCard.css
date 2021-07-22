@@ -1,0 +1,110 @@
+.movie-card {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card__figure {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card__image {
+  aspect-ratio: 25/14;
+}
+
+.movie-card__caption {
+  margin: 10px 0 6px;
+  padding: 0 0 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #424242 solid 1px;
+}
+
+.movie-card__title {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.movie-card__button {
+  margin: 0;
+  padding: 24px 24px 0 0;
+  border: none;
+  border-radius: 50%;
+  background: #313131;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.movie-card__button_like {
+  background-image: url(../../images/buttons/save_disable.svg);
+}
+
+.movie-card__button_like-active {
+  background-image: url(../../images/buttons/save_active.svg);
+}
+
+.movie-card__button_delete {
+  background-image: url(../../images/buttons/delete_icon.svg);
+}
+
+.movie-card__button_delete-active {
+  display: inline-block;
+}
+
+.movie-card__duration {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8B8B8B;
+}
+
+@media screen and (min-width: 768px) {
+  .movie-card {}
+  .movie-card__figure {}
+  .movie-card__image {}
+  .movie-card__caption {}
+  .movie-card__title {
+    font-size: 13px;
+    line-height: 16px;
+  }
+  .movie-card__button {}
+  .movie-card__button_like {}
+  .movie-card__button_like-active {}
+  .movie-card__button_delete {}
+  .movie-card__button_delete-active {}
+  .movie-card__duration {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movie-card {}
+  .movie-card__figure {}
+  .movie-card__image {}
+  .movie-card__caption {}
+  .movie-card__title {
+    font-size: 13px;
+    line-height: 16px;
+  }
+  .movie-card__button {}
+  .movie-card__button_like {}
+  .movie-card__button_like-active {}
+  .movie-card__button_delete {}
+  .movie-card__button_delete-active {}
+  .movie-card__duration {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

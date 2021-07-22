@@ -26,8 +26,13 @@ const portfolioCards = [
   },
 ];
 
+const movies = [
+
+];
+
 export {
   projectCards,
   techs,
   portfolioCards,
+  movies,
 };
