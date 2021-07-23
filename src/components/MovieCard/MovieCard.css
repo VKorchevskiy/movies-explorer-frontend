@@ -36,7 +36,8 @@
 
 .movie-card__button {
   margin: 0;
-  padding: 24px 24px 0 0;
+  padding: 24px 0 0;
+  width: 24px;
   border: none;
   border-radius: 50%;
   background: #313131;
