@@ -16,12 +16,13 @@
 }
 
 .nav-tab__item:last-of-type {
-  margin-right: 24px;
+  margin-right: 0;
 }
 
 .nav-tab__link {
   margin: 0;
   padding: 0;
+  display: flex;
   font-weight: 500;
   font-size: 11px;
   line-height: 16px;

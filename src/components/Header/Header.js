@@ -1,16 +1,34 @@
 import './Header.css';
 import React from 'react';
+import logo from '../../images/logo/logo.svg';
+import { Link, NavLink } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 
 function Header() {
   return (
     <header className="header">
-      <a className="header__logo"></a>
-      <ul className="footer__links">
-        <li className="footer__item"><a className="footer__link" target="_blank" href="https://praktikum.yandex.ru/" rel="noreferrer">Яндекс.Практикум</a></li>
-        <li className="footer__item"><a className="footer__link" target="_blank" href="https://github.com/VKorchevskiy" rel="noreferrer">Github</a></li>
-        <li className="footer__item"><a className="footer__link" target="_blank" href="https://vk.com/id564049394" rel="noreferrer">Vkontakte</a></li>
-      </ul>
-      <p className="footer__copiright">&#169;2021</p>
+      <Link className="header__link" to="/">
+        <img src={logo} alt="Логотип." className="header__logo" />
+      </Link>
+
+      <nav className="header__nav">
+        <ul className="header__list">
+          <li className="header__item">
+            <NavLink className="header__nav-link" activeClassName="header__nav-link_active" to="movies">Фильмы</NavLink>
+          </li>
+          <li className="header__item">
+            <NavLink className="header__nav-link" activeClassName="header__nav-link_active" to="saved-movies">Сохранённые&#160;фильмы</NavLink>
+          </li>
+          <li className="header__item">
+            <NavLink className="header__nav-link" activeClassName="header__nav-link_active" to="profile">
+              Аккаунт<span className="header__profile-icon"></span>
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <button className="header__menu-button"></button>
+      <Navigation isNavigationOpen={false} />
     </header>
   )
 }
