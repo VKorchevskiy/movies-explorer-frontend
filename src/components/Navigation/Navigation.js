@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 function Navigation({ isNavigationOpen }) {
   return (
     <nav className={`navigation ${isNavigationOpen ? 'navigation_active' : ''}`}>
-      <ul className="navigation__list">
-        <li className="navigation__item">
+      <ul className={`navigation__list ${isNavigationOpen ? 'navigation__list_active' : ''}`}>
+        <li className="navigation__item navigation__item_main">
           <NavLink className="navigation__link" activeClassName="navigation__link_active" to="/" exact>Главная</NavLink>
         </li>
         <li className="navigation__item">
@@ -22,7 +22,7 @@ function Navigation({ isNavigationOpen }) {
         </li>
       </ul>
       <button className="navigation__close"></button>
-    </nav>
+    </nav >
   )
 }
 
