@@ -10,8 +10,16 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 function App() {
   return (
     <>
-      <Header className="me-auto">
-      </Header>
+      <InputAuth
+        className={'q'}
+        classInput={'input-auth__input_border_gray'}
+        classDescription={'qqq'}
+        description={'qqq q'}
+        nameInput={'qqq qq'}
+        placeholder={'qqq qqq'}
+        error={'qqq qqq q'}
+      />
+      <Header />
       <SavedMovies />
       <Movies />
       <Preloader />
