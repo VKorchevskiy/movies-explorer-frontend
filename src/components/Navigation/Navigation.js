@@ -2,10 +2,10 @@ import './Navigation.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ isNavigationOpen }) {
+function Navigation({ isOpen, onClose }) {
   return (
-    <nav className={`navigation ${isNavigationOpen ? 'navigation_active' : ''}`}>
-      <ul className={`navigation__list ${isNavigationOpen ? 'navigation__list_active' : ''}`}>
+    <nav className={`navigation ${isOpen ? 'navigation_active' : ''}`}>
+      <ul className={`navigation__list ${isOpen ? 'navigation__list_active' : ''}`}>
         <li className="navigation__item navigation__item_main">
           <NavLink className="navigation__link" activeClassName="navigation__link_active" to="/" exact>Главная</NavLink>
         </li>
@@ -21,7 +21,7 @@ function Navigation({ isNavigationOpen }) {
           </NavLink>
         </li>
       </ul>
-      <button className="navigation__close"></button>
+      <button className="navigation__close" aria-label="Закрыть меню." onClick={onClose}></button>
     </nav >
   )
 }
