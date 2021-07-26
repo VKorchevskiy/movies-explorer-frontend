@@ -7,7 +7,7 @@ function ProjectCards({ classPosition }) {
   return (
     <ul className={`project-cards ${classPosition}`}>
       {
-        projectCards.map((card) => <ProjectCard subtitle={card.subtitle} description={card.description} />)
+        projectCards.map((card, i) => <ProjectCard key={i} subtitle={card.subtitle} description={card.description} />)
       }
     </ul>
   )

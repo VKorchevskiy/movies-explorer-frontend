@@ -9,7 +9,7 @@ function Portfolio({classPosition}) {
       <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__list">
         {
-          portfolioCards.map((card) => <PortfolioItem {...card} />)
+          portfolioCards.map((card, i) => <PortfolioItem key={i} {...card} />)
         }
       </ul>
     </div>

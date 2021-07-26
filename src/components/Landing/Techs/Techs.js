@@ -10,7 +10,7 @@ function Techs() {
       <p className="tech-cards__description">На курсе веб-разработки мы освоили технологии, которые применили в&#160;дипломном&#160;проекте.</p>
       <ul className="tech-cards__list">
         {
-          techs.map((tech) => <TechCard tech={tech} />)
+          techs.map((tech, i) => <TechCard  key={i} tech={tech} />)
         }
       </ul>
     </div>
