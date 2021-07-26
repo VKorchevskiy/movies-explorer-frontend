@@ -8,10 +8,10 @@ function Register({ className }) {
   return (
     <div className={`register ${className || ''}`.trim()}>
       <HeaderAuth className="register__header-auth" title="Добро пожаловать!" />
-      <form className="regiser__form" name="register" noValidate >
-        <div className="regiser__container">
+      <form className="register__form" name="register" noValidate >
+        <div className="register__container">
           <InputAuth
-            className="regiser__input"
+            className="register__input"
             description="Имя"
             nameInput="name"
             typeInput="text"
@@ -19,7 +19,7 @@ function Register({ className }) {
             error=""
           />
           <InputAuth
-            className="regiser__input"
+            className="register__input"
             description="E-mail"
             nameInput="email"
             typeInput="email"
@@ -27,7 +27,7 @@ function Register({ className }) {
             error=""
           />
           <InputAuth
-            className="regiser__input"
+            className="register__input"
             description="Пароль"
             nameInput="password"
             typeInput="password"

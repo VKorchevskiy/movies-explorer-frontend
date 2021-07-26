@@ -7,11 +7,13 @@ import Preloader from '../Preloader/Preloader';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   return (
     <>
-      <Register className="app__regiser" />
+      <Login className="app__login" />
+      <Register className="app__register" />
       <Header />
       <SavedMovies />
       <Movies />

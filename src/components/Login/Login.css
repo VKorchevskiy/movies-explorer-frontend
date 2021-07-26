@@ -1,4 +1,4 @@
-.register {
+.login {
   padding: 56px 0 30px;
   width: 260px;
   display: grid;
@@ -8,43 +8,43 @@
   align-self: center;
 }
 
-.register__form {
+.login__form {
   width: 100%;
   display: grid;
   grid-template-columns: 100%;
-  gap: calc(100vh - 623px);
+  gap: calc(100vh - 513px);
 }
 
-.register__container {
-  padding-bottom: 65px;
+.login__container {
+  padding-bottom: 24px;
 }
 
-.register__input {
+.login__input {
   width: 100%;
 }
 
-.register__submit-auth {
+.login__submit-auth {
   align-self: end;
 }
 
 @media screen and (min-width: 768px) {
-  .register {
+  .login {
     padding-top: 232px;
     padding-bottom: 232px;
     width: 396px;
     gap: 40px;
   }
-  .register__form {
-    gap: calc(100vh - 955px);
+  .login__form {
+    gap: calc(100vh - 845px);
   }
 }
 
 @media screen and (min-width: 1280px) {
-  .register {
+  .login {
     padding-top: 70px;
     padding-bottom: 70px;
   }
-  .register__form {
-    gap: calc(100vh - 631px);
+  .login__form {
+    gap: calc(100vh - 521px);
   }
 }
