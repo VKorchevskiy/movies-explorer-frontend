@@ -1,0 +1,50 @@
+.register {
+  padding: 56px 0 30px;
+  width: 260px;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 80px;
+  justify-content: stretch;
+  align-self: center;
+}
+
+.regiser__form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: calc(100vh - 623px);
+}
+
+.regiser__container {
+  padding-bottom: 65px;
+}
+
+.regiser__input {
+  width: 100%;
+}
+
+.register__submit-auth {
+  align-self: end;
+}
+
+@media screen and (min-width: 768px) {
+  .register {
+    padding-top: 232px;
+    padding-bottom: 232px;
+    width: 396px;
+    gap: 40px;
+  }
+  .regiser__form {
+    gap: calc(100vh - 955px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .register {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .regiser__form {
+    gap: calc(100vh - 631px);
+  }
+}

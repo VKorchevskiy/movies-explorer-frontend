@@ -6,19 +6,12 @@ import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Register from '../Register/Register';
 
 function App() {
   return (
     <>
-      <InputAuth
-        className={'q'}
-        classInput={'input-auth__input_border_gray'}
-        classDescription={'qqq'}
-        description={'qqq q'}
-        nameInput={'qqq qq'}
-        placeholder={'qqq qqq'}
-        error={'qqq qqq q'}
-      />
+      <Register className="app__regiser" />
       <Header />
       <SavedMovies />
       <Movies />

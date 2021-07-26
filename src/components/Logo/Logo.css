@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.logo__img {
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 1/1;
+  height: 38px;
+}

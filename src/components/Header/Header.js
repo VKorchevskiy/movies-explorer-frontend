@@ -1,8 +1,8 @@
 import './Header.css';
 import React from 'react';
-import logo from '../../images/logo/logo.svg';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
+import Logo from '../Logo/Logo';
 import { useState } from 'react';
 
 function Header() {
@@ -13,9 +13,7 @@ function Header() {
 
   return (
     <header className="header">
-      <Link className="header__link" to="/">
-        <img src={logo} alt="Логотип." className="header__logo" />
-      </Link>
+      <Logo className="header__logo" />
       <button className="header__menu-button" aria-label="Редактировать" onClick={handleOpenHeaderMenu}></button>
       <Navigation isOpen={isNavigationOpen} onClose={handleCloseHeaderMenu} />
     </header>

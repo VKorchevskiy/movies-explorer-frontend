@@ -1,3 +1,4 @@
+import logo from '../images/logo/logo.svg';
 const projectCards = [
   {
     subtitle: 'Дипломный проект включал 5 этапов',
@@ -31,6 +32,7 @@ const movies = [
 ];
 
 export {
+  logo,
   projectCards,
   techs,
   portfolioCards,

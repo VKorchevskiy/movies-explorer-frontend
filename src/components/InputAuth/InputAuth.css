@@ -17,13 +17,14 @@
 
 .input-auth__text_error {
   color: #EE3465;
-  display: none;
+  opacity: 0;
   padding-bottom: 0;
-  padding-top: 6px;
+  padding-top: 18px;
 }
 
 .input-auth__text_error_active {
-  display: block;
+  opacity: 1;
+  padding-top: 6px;
 }
 
 .input-auth__input {
@@ -36,13 +37,10 @@
   width: 100%;
   border: none;
   background: rgba(0, 0, 0, 0);
-}
-
-.input-auth__input_border_gray {
   border-bottom: #424242 solid 1px;
 }
 
-.input-auth__input_border_blue {
+.input-auth__input:focus {
   border-bottom: #4285F4 solid 1px;
 }
 
