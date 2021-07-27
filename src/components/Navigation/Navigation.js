@@ -2,9 +2,9 @@ import './Navigation.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ isOpen, onClose }) {
+function Navigation({ isOpen, onClose, className }) {
   return (
-    <nav className={`navigation ${isOpen ? 'navigation_active' : ''}`}>
+    <nav className={`navigation ${className || ''}`.trim() + `${isOpen ? 'navigation_active' : ''}`}>
       <ul className={`navigation__list ${isOpen ? 'navigation__list_active' : ''}`}>
         <li className="navigation__item navigation__item_main">
           <NavLink className="navigation__link" activeClassName="navigation__link_active" to="/" exact>Главная</NavLink>

@@ -11,26 +11,25 @@ import './Landing.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Landing() {
+function Landing({ className }) {
   return (
-    <>
+    <div className={`landing ${className || ''}`.trim()}>
       <Header className="landing__header" />
-      <Promo>
-      </Promo>
-      <NavTab />
-      <Section title={'О проекте'} classPosition={'landing__about-project'} bookmark={'about-project'}>
-        <ProjectCards classPosition={'landing__project-cards'} />
-        <TimeLine classPosition={'landing__time-line'} />
+      <Promo className="landing__promo" />
+      <NavTab className="landing__nav-tab" />
+      <Section title={'О проекте'} className={'landing__about-project'} bookmark={'about-project'}>
+        <ProjectCards className={'landing__project-cards'} />
+        <TimeLine className={'landing__time-line'} />
       </Section>
-      <Section title={'Технологии'} classPosition={'landing__techs'} bookmark={'techs'}>
-        <Techs />
+      <Section title={'Технологии'} className={'landing__techs'} bookmark={'techs'}>
+        <Techs className="landing__tech-cards" />
       </Section>
-      <Section title={'Студент'} classPosition={'landing__student'} bookmark={'student'}>
-        <AboutMe classPosition={'landing__about-me'} />
-        <Portfolio classPosition={'landing__portfolio'} />
+      <Section title={'Студент'} className={'landing__student'} bookmark={'student'}>
+        <AboutMe className={'landing__about-me'} />
+        <Portfolio className={'landing__portfolio'} />
       </Section>
       <Footer />
-    </>
+    </div>
   );
 }
 

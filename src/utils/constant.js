@@ -1,4 +1,7 @@
 import logo from '../images/logo/logo.svg';
+import avatar from '../images/avatar.jpg';
+import movie from '../images/movies/run_is_freadom.png';
+
 const projectCards = [
   {
     subtitle: 'Дипломный проект включал 5 этапов',
@@ -33,6 +36,8 @@ const movies = [
 
 export {
   logo,
+  avatar,
+  movie,
   projectCards,
   techs,
   portfolioCards,

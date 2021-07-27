@@ -11,7 +11,7 @@ function Header({ className }) {
   const handleCloseHeaderMenu = () => setIsNavigationOpen(false);
 
   return (
-    <header className={`header ${className}`.trim()}>
+    <header className={`header ${className || ''}`.trim()}>
       <Logo className="header__logo" />
       <button className="header__menu-button" aria-label="Редактировать" onClick={handleOpenHeaderMenu}></button>
       <Navigation isOpen={isNavigationOpen} onClose={handleCloseHeaderMenu} />

@@ -46,6 +46,6 @@
   outline: none;
 }
 
-.input-auth__input_error {
+.input-auth__input_error_active {
   color: #EE3465;
 }

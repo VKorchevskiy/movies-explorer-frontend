@@ -1,3 +1,12 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .landing__header {
   background: #073042;
 }
@@ -10,7 +19,7 @@
   margin-top: 60px;
 }
 
-.tech-cards {
+.landing__tech-cards {
   margin-top: 60px;
 }
 
@@ -34,7 +43,7 @@
   .landing__time-line {
     margin-top: 93px;
   }
-  .tech-cards {
+  .landing__tech-cards {
     margin-top: 80px;
   }
   .landing__techs {
@@ -56,7 +65,7 @@
   .landing__time-line {
     margin-top: 110px;
   }
-  .tech-cards {
+  .landing__tech-cards {
     margin-top: 90px;
   }
   .landing__student {

@@ -1,9 +1,9 @@
 import './Footer.css';
 import React from 'react';
 
-function Footer() {
+function Footer({ className }) {
   return (
-    <footer className="footer">
+    <footer className={`footer ${className || ''}`.trim()}>
       <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
       <ul className="footer__links">
         <li className="footer__item"><a className="footer__link" target="_blank" href="https://praktikum.yandex.ru/" rel="noreferrer">Яндекс.Практикум</a></li>

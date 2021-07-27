@@ -14,10 +14,10 @@ import React from 'react';
 function InputAuth({ className, description, nameInput, typeInput, placeholder, error }) {
 
   return (
-    <div className={`input-auth ${className}`}>
+    <div className={`input-auth ${className || ''}`.trim()}>
       <p className={`input-auth__text`}>{description}</p>
       <input
-        className={`input-auth__input ${error ? 'input-auth__input_error' : ''}`}
+        className={`input-auth__input ${error ? 'input-auth__input_error_active' : ''}`}
         name={nameInput}
         type={typeInput}
         id={nameInput}

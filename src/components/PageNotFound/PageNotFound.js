@@ -2,9 +2,9 @@ import './PageNotFound.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PageNotFound() {
+function PageNotFound({ className }) {
   return (
-    <div className="page-not-found app__page-not-found">
+    <div className={`page-not-found ${className || ''}`.trim()}>
       <div className="page-not-found__content">
         <h1 className="page-not-found__title">404</h1>
         <p className="page-not-found__text">Страница не найдена</p>

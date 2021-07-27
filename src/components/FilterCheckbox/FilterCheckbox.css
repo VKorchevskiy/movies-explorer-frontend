@@ -1,11 +1,11 @@
-.filter-checkbox {
+.filter {
   display: grid;
   grid-template-columns: 36px max-content;
   align-items: center;
   gap: 13px;
 }
 
-.checkbox__input {
+.filter__checkbox {
   height: 20px;
   width: 36px;
   border: none;
@@ -13,15 +13,13 @@
   background: #343434;
 }
 
-.checkbox__label {
+.filter__label {
   font-weight: 400;
   font-size: 11px;
   line-height: 18px;
 }
 
-
-
-.knobs, .layer {
+.filter__knobs, .filter__layer {
   position: absolute;
   top: 0;
   right: 0;
@@ -29,7 +27,7 @@
   left: 0;
 }
 
-.button {
+.filter__button {
   position: relative;
   top: 0;
   width: 36px;
@@ -38,11 +36,11 @@
   overflow: hidden;
 }
 
-.button, .layer {
+.filter__button, .filter__layer {
   border-radius: 100px;
 }
 
-.checkbox {
+.filter__checkbox {
   position: relative;
   width: 100%;
   height: 100%;
@@ -53,18 +51,18 @@
   z-index: 3;
 }
 
-.knobs {
+.filter__knobs {
   z-index: 2;
 }
 
-.layer {
+.filter__layer {
   width: 100%;
   background-color: #343434;
   transition: 0.3s ease all;
   z-index: 1;
 }
 
-.knobs:before {
+.filter__knobs:before {
   content: '';
   position: absolute;
   top: 2px;
@@ -76,22 +74,22 @@
   border: #ffffff solid 1px;
 }
 
-.checkbox:checked+.knobs:before {
+.filter__checkbox:checked+.filter__knobs:before {
   content: '';
   left: 2px;
   background-color: #A0A0A0;
 }
 
-.knobs, .knobs:before, .layer {
+.filter__knobs, .filter__knobs:before, .filter__layer {
   transition: .3s cubic-bezier(0.18, 0.89, 0.35, 1.2) all;
 }
 
 
 
 @media screen and (min-width: 768px) {
-  .checkbox__label {
+  .filter__label {
     font-size: 14px;
   }
 }
 
-@media screen and (min-width: 768px) {}
+@media screen and (min-width: 1280px) {}
