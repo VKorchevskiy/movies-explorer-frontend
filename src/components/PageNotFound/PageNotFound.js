@@ -11,7 +11,7 @@ function PageNotFound({ className }) {
       </div>
 
 
-      <Link to="signin" className="page-not-found__link">Назад</Link>
+      <Link to="signin" className="link page-not-found__link">Назад</Link>
     </div>
   )
 }

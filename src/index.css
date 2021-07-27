@@ -1,6 +1,5 @@
 @import "./vendor/normalize.css";
 @import "./vendor/fonts/inter/inter.css";
-
 .page {
   background: #202020;
   font-family: 'Inter', Arial, sans-serif;
@@ -19,7 +18,19 @@
   align-content: center;
 }
 
-* , *::before,*::after {
-    outline: 1px solid red
-  };
+.link, .button {
+  cursor: pointer;
+  transition: opacity 0.3s linear 0s;
+}
 
+.link:hover {
+  opacity: .7;
+}
+
+.button:hover {
+  opacity: .8;
+}
+
+/* *, *::before, *::after {
+  outline: 1px solid red
+} */

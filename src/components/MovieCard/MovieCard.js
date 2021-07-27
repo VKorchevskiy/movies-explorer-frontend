@@ -8,8 +8,8 @@ const MovieCard = ({ className }) => (
       <img src={movie} alt="Name" className="movie-card__image" />
       <figcaption className="movie-card__caption">
         <h2 className="movie-card__title">Какое-то название фильма</h2>
-        <button className="movie-card__button movie-card__button_like" type="button" aria-label="Нравится"></button>
-        <button className="movie-card__button movie-card__button_delete" type="button" aria-label="Удалить"></button>
+        <button className="button movie-card__button movie-card__button_like" type="button" aria-label="Нравится"></button>
+        <button className="button movie-card__button movie-card__button_delete" type="button" aria-label="Удалить"></button>
       </figcaption>
     </figure>
     <p className="movie-card__duration">1ч 27м</p>

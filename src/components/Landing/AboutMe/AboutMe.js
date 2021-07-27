@@ -13,8 +13,8 @@ function AboutMe({ className }) {
           <p className="about-me__text">Живу в Москве, закончил факультет промышленной теплоэнергетики ОмГТУ. У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь рыбалкой и путешествиями. Недавно начал кодить. С 2017 года работаю в «Центральном проектном институте». Прохожу курс по веб-разработке.</p>
         </div>
         <ul className="about-me__socials">
-          <li className="about-me__social"><a className="about-me__link" target="_blank" href="https://vk.com/id564049394" rel="noreferrer">Vkontakte</a></li>
-          <li className="about-me__social"><a className="about-me__link" target="_blank" href="https://github.com/VKorchevskiy" rel="noreferrer">Github</a></li>
+          <li className="about-me__social"><a className="link about-me__link" target="_blank" href="https://vk.com/id564049394" rel="noreferrer">Vkontakte</a></li>
+          <li className="about-me__social"><a className="link about-me__link" target="_blank" href="https://github.com/VKorchevskiy" rel="noreferrer">Github</a></li>
         </ul>
       </div>
     </div>

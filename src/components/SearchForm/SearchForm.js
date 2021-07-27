@@ -7,7 +7,7 @@ function SearchForm({ children, className }) {
       <form className="search__form">
         <input className="search__input-text" type="text" name="search" id="search"
           placeholder="Фильм" required />
-        <input className="search__submit" type="submit" name="search" value="" />
+        <input className="button search__submit-button" type="submit" name="search" value="" />
       </form>
       {children}
     </div>
