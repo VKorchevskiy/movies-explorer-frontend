@@ -8,7 +8,7 @@ function Login({ className }) {
   return (
     <div className={`login ${className || ''}`.trim()}>
       <HeaderAuth className="login__header-auth" title="Рады видеть!" />
-      <form className="login__form" name="register" noValidate >
+      <form className="login__form" name="register">
         <div className="login__container">
           <InputAuth
             className="login__input"

@@ -14,7 +14,7 @@ function MoviesCardList({ className }) {
         <MovieCard />
         <MovieCard />
       </ul>
-      <button className="movies-list__button ">Ещё</button>
+      <button className="button movies-list__button ">Ещё</button>
     </div>
   )
 }

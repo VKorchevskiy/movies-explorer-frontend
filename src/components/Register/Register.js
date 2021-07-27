@@ -8,7 +8,7 @@ function Register({ className }) {
   return (
     <div className={`register ${className || ''}`.trim()}>
       <HeaderAuth className="register__header-auth" title="Добро пожаловать!" />
-      <form className="register__form" name="register" noValidate >
+      <form className="register__form" name="register">
         <div className="register__container">
           <InputAuth
             className="register__input"

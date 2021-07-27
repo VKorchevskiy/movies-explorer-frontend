@@ -5,7 +5,7 @@ function Profile({ className, userName }) {
   return (
     <div className={`profile ${className || ''}`.trim()}>
       <h2 className="profile__title">Привет, {userName}!</h2>
-      <form className="profile__form" name="profile" noValidate >
+      <form className="profile__form" name="profile">
         <div className="profile__container-form">
           <div className="profile__container">
             <p className="profile__description">Имя</p>
