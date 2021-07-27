@@ -3,7 +3,7 @@
   padding: 79px 10px 10px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
+  gap: 27px;
   align-items: center;
 }
 
@@ -31,7 +31,7 @@
 
 .footer__item {
   list-style: none;
-  margin: 0 0 12px 0;
+  margin: 0 0 9px 0;
   padding: 0;
 }
 

@@ -37,7 +37,7 @@ function App() {
           const url = match.url.replace(/^.{1}/gi, '');
           return (
             <>
-              {pathsAll.includes(url) ? <Header /> : <></>}
+              {pathsAll.includes(url) ? <Header isLogged={true} /> : <></>}
               {url === 'movies' ? <Movies /> : <></>}
               {url === 'saved-movies' ? <SavedMovies /> : <></>}
               {url === 'profile' ? <Profile className="app__profile" userName="Владимир" /> : <></>}

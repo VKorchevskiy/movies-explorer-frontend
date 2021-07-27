@@ -11,6 +11,11 @@
   line-height: 28px;
 }
 
+.portfolio-item:last-of-type {
+  padding-bottom: 0;
+  border: none;
+}
+
 .portfolio-item:first-of-type {
   padding-top: 0;
 }

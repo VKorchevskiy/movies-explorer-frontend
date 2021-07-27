@@ -44,6 +44,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+.movie-card__button_disable {
+  display: none;
+}
 
 .movie-card__button_like {
   background-image: url(../../images/buttons/save_disable.svg);
@@ -57,10 +60,6 @@
   background-image: url(../../images/buttons/delete_icon.svg);
 }
 
-.movie-card__button_delete-active {
-  display: inline-block;
-}
-
 .movie-card__duration {
   margin: 0;
   padding: 0;
@@ -71,19 +70,10 @@
 }
 
 @media screen and (min-width: 768px) {
-  .movie-card {}
-  .movie-card__figure {}
-  .movie-card__image {}
-  .movie-card__caption {}
   .movie-card__title {
     font-size: 13px;
     line-height: 16px;
   }
-  .movie-card__button {}
-  .movie-card__button_like {}
-  .movie-card__button_like-active {}
-  .movie-card__button_delete {}
-  .movie-card__button_delete-active {}
   .movie-card__duration {
     font-size: 11px;
     line-height: 13px;
@@ -91,19 +81,10 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .movie-card {}
-  .movie-card__figure {}
-  .movie-card__image {}
-  .movie-card__caption {}
   .movie-card__title {
     font-size: 13px;
     line-height: 16px;
   }
-  .movie-card__button {}
-  .movie-card__button_like {}
-  .movie-card__button_like-active {}
-  .movie-card__button_delete {}
-  .movie-card__button_delete-active {}
   .movie-card__duration {
     font-size: 11px;
     line-height: 13px;

@@ -17,6 +17,9 @@
 
 .login__container {
   padding-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
 }
 
 .login__input {

@@ -3,14 +3,42 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 14px;
+  padding: 15px 14px 16px;
   margin: 0;
+}
+
+.header__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .header__link {
   display: flex;
-  margin: 0;
+  margin: 0 12px 0 0;
   padding: 0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.header__link:last-of-type {
+  margin-right: 0;
+}
+
+.header__link_signup {
+  color: #ffffff;
+}
+
+.header__link-signin {
+  color: #000000;
+  height: 26px;
+  width: 54px;
+  background: #3DDC84;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
 }
 
 .header__logo {
@@ -29,9 +57,8 @@
   background-repeat: no-repeat;
   background-position: center;
   border: none;
-  width: 22px;
-  height: 21px;
-  cursor: pointer;
+  width: 40px;
+  height: 43px;
 }
 
 @media screen and (min-width: 768px) {
@@ -39,18 +66,23 @@
     padding-left: 30px;
     padding-right: 30px;
   }
+  .header__link {
+    margin-right: 30px;
+    font-size: 12px;
+  }
+  .header__link-signin {
+    height: 32px;
+    width: 76px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
   .header {
-    padding-left: 70px;
-    padding-right: 70px;
+    padding: 18px 70px 18px;
   }
-
   .header__nav {
     display: block;
   }
-
   .header__list {
     list-style: none;
     margin: 0;
@@ -59,21 +91,17 @@
     flex-direction: row;
     align-items: center;
   }
-
   .header__item {
     list-style: none;
     margin: 0;
     padding: 0 0 0 20px;
   }
-
   .header__item:first-of-type {
     padding-left: 0;
   }
-
   .header__item:last-of-type {
     padding-left: 50px;
   }
-
   .header__nav-link {
     display: flex;
     flex-direction: row;
@@ -86,11 +114,9 @@
     color: #ffffff;
     cursor: pointer;
   }
-
   .header__nav-link_active {
     border-bottom: 2px solid #ffffff;
   }
-
   .header__profile-icon {
     width: 26px;
     height: 30px;
@@ -99,7 +125,6 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-
   .header__menu-button {
     display: none;
   }

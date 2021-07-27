@@ -9,7 +9,6 @@
 .profile__title {
   margin: 0 0 80px;
   padding: 0;
-  font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -19,7 +18,7 @@
 .profile__form {
   display: grid;
   grid-template-columns: auto;
-  gap: calc(100vh - 401px);
+  gap: calc(100vh - 416px);
 }
 
 .profile__container {
@@ -95,7 +94,7 @@
     margin-bottom: 96px;
   }
   .profile__form {
-    gap: calc(100vh - 814px);
+    gap: calc(100vh - 829px);
   }
   .profile__description {
     width: 141px;
@@ -118,6 +117,6 @@
     margin-bottom: 123px;
   }
   .profile__form {
-    gap: calc(100vh - 480px);
+    gap: calc(100vh - 495px);
   }
 }

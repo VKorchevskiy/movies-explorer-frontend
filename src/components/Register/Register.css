@@ -17,6 +17,9 @@
 
 .register__container {
   padding-bottom: 65px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
 }
 
 .register__input {

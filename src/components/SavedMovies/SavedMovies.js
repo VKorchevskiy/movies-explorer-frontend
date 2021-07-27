@@ -9,7 +9,7 @@ const SavedMovies = ({ className }) => (
     <SearchForm>
       <FilterCheckbox />
     </SearchForm>
-    <MoviesCardList />
+    <MoviesCardList isSaved={true} />
   </main>
 );
 
