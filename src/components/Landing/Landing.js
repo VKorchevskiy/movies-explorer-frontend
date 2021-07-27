@@ -8,11 +8,15 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import './Landing.css';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function Landing() {
   return (
     <>
-      <Promo />
+      <Header className="landing__header" />
+      <Promo>
+      </Promo>
       <NavTab />
       <Section title={'О проекте'} classPosition={'landing__about-project'} bookmark={'about-project'}>
         <ProjectCards classPosition={'landing__project-cards'} />
@@ -25,6 +29,7 @@ function Landing() {
         <AboutMe classPosition={'landing__about-me'} />
         <Portfolio classPosition={'landing__portfolio'} />
       </Section>
+      <Footer />
     </>
   );
 }

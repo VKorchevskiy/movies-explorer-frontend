@@ -39,7 +39,7 @@ function Register({ className }) {
           className='register__submit-auth'
           nameSubmit='Зарегистрироваться'
           question='Уже зарегистрированы?'
-          link='sigh-in'
+          link='signin'
           linkText='Войти'
         />
       </form>

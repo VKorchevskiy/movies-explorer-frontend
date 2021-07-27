@@ -5,7 +5,7 @@ function PortfolioItem({ description, link }) {
   return (
     <li className="portfolio-item">
       <p className="portfolio-item__description">{description}</p>
-      <a className="portfolio-item__link" href={`${link}`} target="_blank">&#8599;</a>
+      <a className="portfolio-item__link" href={`${link}`} target="_blank" rel="noreferrer">&#8599;</a>
     </li>
   )
 }

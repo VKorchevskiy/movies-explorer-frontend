@@ -34,6 +34,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  color: #ffffff;
   width: 100%;
   border: none;
   background: rgba(0, 0, 0, 0);
@@ -42,6 +43,7 @@
 
 .input-auth__input:focus {
   border-bottom: #4285F4 solid 1px;
+  outline: none;
 }
 
 .input-auth__input_error {

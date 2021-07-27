@@ -1,6 +1,6 @@
 import './PageNotFound.css';
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function PageNotFound() {
   return (
@@ -11,7 +11,7 @@ function PageNotFound() {
       </div>
 
 
-      <Link to="sign-in" className="page-not-found__link">Назад</Link>
+      <Link to="signin" className="page-not-found__link">Назад</Link>
     </div>
   )
 }

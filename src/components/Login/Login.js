@@ -31,7 +31,7 @@ function Login({ className }) {
           className='login__submit-auth'
           nameSubmit='Войти'
           question='Ещё не зарегистрированы?'
-          link='sigh-up'
+          link='signup'
           linkText='Регистрация'
         />
       </form>
