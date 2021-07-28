@@ -1,13 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+@import "./vendor/normalize.css";
+@import "./vendor/fonts/inter/inter.css";
+.page {
+  background: #202020;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  color: #FFFFFF;
+  min-width: 320px;
+  max-width: 1280px;
+  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.link, .button {
+  cursor: pointer;
+  transition: opacity 0.3s linear 0s;
 }
+
+.link:hover {
+  opacity: .7;
+}
+
+.button:hover {
+  opacity: .8;
+}
+
+/* *, *::before, *::after {
+  outline: 1px solid red
+} */

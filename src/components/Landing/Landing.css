@@ -1,0 +1,79 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: -0.04em;
+}
+
+.landing__header {
+  background: #073042;
+}
+
+.landing__project-cards {
+  margin-top: 60px;
+}
+
+.landing__time-line {
+  margin-top: 60px;
+}
+
+.landing__tech-cards {
+  margin-top: 60px;
+}
+
+.landing__techs {}
+
+.landing__student {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.landing__about-me {
+  margin-top: 60px;
+}
+.landing__portfolio {
+  margin-top: 69px;
+}
+
+@media screen and (min-width: 768px) {
+  .landing__project-cards {
+    margin-top: 70px;
+  }
+  .landing__time-line {
+    margin-top: 93px;
+  }
+  .landing__tech-cards {
+    margin-top: 80px;
+  }
+  .landing__techs {
+    background: #272727;
+  }
+  .landing__student {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .landing__about-me {
+    margin-top: 66px;
+  }
+  .landing__portfolio {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .landing__time-line {
+    margin-top: 110px;
+  }
+  .landing__tech-cards {
+    margin-top: 90px;
+  }
+  .landing__student {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+  .landing__portfolio {
+    margin-top: 100px;
+  }
+}
