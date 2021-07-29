@@ -27,12 +27,17 @@ const portfolioCards = [
   {
     description: 'Одностраничное приложение',
     link: 'https://github.com/VKorchevskiy/mesto-react',
-  },
+  }
 ];
 
-const movies = [
+const optionsMoviesApi ={
+  baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+};
 
-];
+const headersMoviesApi = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+}
 
 export {
   logo,
@@ -41,5 +46,6 @@ export {
   projectCards,
   techs,
   portfolioCards,
-  movies,
+  optionsMoviesApi,
+  headersMoviesApi,
 };
