@@ -1,6 +1,9 @@
 import logo from '../images/logo/logo.svg';
 import avatar from '../images/avatar.jpg';
-import movie from '../images/movies/run_is_freadom.png';
+
+const pathsWithFooter = ['movies', 'saved-movies']
+
+const pathsAll = ['movies', 'saved-movies', 'profile']
 
 const projectCards = [
   {
@@ -30,11 +33,16 @@ const portfolioCards = [
   }
 ];
 
-const optionsMoviesApi ={
-  baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+const optionsMoviesApi = {
+  baseUrl: 'https://api.nomoreparties.co',
 };
 
-const headersMoviesApi = {
+const optionsMainApi = {
+  // baseUrl: 'api.diploma.vkorchevskiy.nomoredomains.club',
+  baseUrl: 'http://localhost:3000',
+};
+
+const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
 }
@@ -42,10 +50,12 @@ const headersMoviesApi = {
 export {
   logo,
   avatar,
-  movie,
+  pathsWithFooter,
+  pathsAll,
   projectCards,
   techs,
   portfolioCards,
   optionsMoviesApi,
-  headersMoviesApi,
+  optionsMainApi,
+  headers,
 };

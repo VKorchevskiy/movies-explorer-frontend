@@ -17,7 +17,7 @@ function Header({ className, isLogged }) {
 
       {isLogged ?
         <>
-          <button className="header__menu-button" aria-label="Редактировать" onClick={handleOpenHeaderMenu}></button>
+          <button className="button header__menu-button" aria-label="Редактировать" onClick={handleOpenHeaderMenu}></button>
           <Navigation isOpen={isNavigationOpen} onClose={handleCloseHeaderMenu} />
         </>
         :

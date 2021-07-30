@@ -1,4 +1,8 @@
 import './App.css';
+
+import { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import Header from '../Header/Header';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
 import Landing from '../Landing/Landing';
@@ -9,12 +13,29 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
-import { Route, Switch } from 'react-router-dom';
+
+import { pathsWithFooter, pathsAll } from '../../utils/constant';
+import { filterMovies } from '../../utils/halpers';
+import { moviesApi } from '../../utils/MoviesApi.js';
 
 
 function App() {
-  const pathsWithFooter = ['movies', 'saved-movies']
-  const pathsAll = ['movies', 'saved-movies', 'profile']
+  const [isNotSearched, setIsNotSearched] = useState(false);
+  const [allMovies, setAllMovies] = useState([])
+  const [movies, setMoviesData] = useState([]);
+
+
+
+  const searchMovies = (dataSearch) => {
+
+    return moviesApi.getMovies()
+      .then((movies) => filterMovies(movies, dataSearch))
+      .then((movies) => {
+        setMoviesData(movies);
+        console.log(movies)
+        setIsNotSearched(true)
+      })
+  }
 
   return (
     <Switch>
@@ -38,7 +59,11 @@ function App() {
           return (
             <>
               {pathsAll.includes(url) ? <Header isLogged={true} /> : <></>}
-              {url === 'movies' ? <Movies /> : <></>}
+              {url === 'movies' ? <Movies
+                movies={movies}
+                isNotSearched={isNotSearched}
+                searchMovies={searchMovies}
+              /> : <></>}
               {url === 'saved-movies' ? <SavedMovies /> : <></>}
               {url === 'profile' ? <Profile className="app__profile" userName="Владимир" /> : <></>}
               {pathsWithFooter.includes(url) ? <Footer /> : <></>}

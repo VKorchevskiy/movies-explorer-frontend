@@ -5,6 +5,10 @@
   padding: 40px 10px 10px;
 }
 
+.movies-list_disable {
+  display: none;
+}
+
 .movies-list__conteiner {
   list-style: none;
   margin: 0;

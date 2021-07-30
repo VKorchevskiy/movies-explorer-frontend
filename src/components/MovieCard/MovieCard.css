@@ -12,8 +12,15 @@
   flex-direction: column;
 }
 
+.movie-card__link {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
 .movie-card__image {
   aspect-ratio: 25/14;
+  width: 100%;
 }
 
 .movie-card__caption {
@@ -44,6 +51,7 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .movie-card__button_disable {
   display: none;
 }

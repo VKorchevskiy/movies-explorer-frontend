@@ -1,4 +1,5 @@
-import { optionsMoviesApi, headersMoviesApi } from '../../../Other/constant';
+import { optionsMoviesApi, headers } from './constant';
+import { checkResponse } from './halpers';
 
 class MoviesApi {
   constructor(config, headers) {
@@ -6,18 +7,11 @@ class MoviesApi {
     this.headers = headers;
   }
 
-  _checkResponse = (res) => res.ok ? res.json() : Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
-
-  getMovies = () => {
-    console.log(this.baseUrl, this.headers)
-    return fetch(this.baseUrl, {
-      headers: { ...this.headers },
-      method: 'GET',
-    })
-      .then(this._checkResponse)
-      .then(data => console.log(data))
-  }
-
+  getMovies = () => fetch(`${this.baseUrl}/beatfilm-movies`, {
+    headers: { ...this.headers },
+    method: 'GET',
+  })
+    .then(checkResponse)
 }
 
-export const moviesApi = new MoviesApi(optionsMoviesApi, headersMoviesApi);
+export const moviesApi = new MoviesApi(optionsMoviesApi, headers);
