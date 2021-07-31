@@ -103,8 +103,20 @@ function App() {
   const onLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
     history.push('/signin');
   };
+
+  const editProfile = ({ name, email }) => {
+    return mainApi
+      .putchUser({ name, email }, localStorage.getItem('jwt'))
+      .then(res => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   const searchMovies = (dataSearch) => moviesApi.getMovies()
     .then((movies) => {
@@ -161,6 +173,7 @@ function App() {
                     className="app__profile"
                     onLogout={onLogout}
                     isLoggedIn={isLoggedIn}
+                    editProfile={editProfile}
                     component={Profile}
                   /> : <></>}
 
