@@ -1,11 +1,13 @@
 import './Header.css';
-import React from 'react';
+import React, { useContext } from 'react';
 import Navigation from '../Navigation/Navigation';
 import Logo from '../Logo/Logo';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 
-function Header({ className, isLogged }) {
+function Header({ className }) {
+  const isLoggedIn = useContext(IsLoggedInContext);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
   const handleOpenHeaderMenu = () => setIsNavigationOpen(true);
@@ -15,7 +17,7 @@ function Header({ className, isLogged }) {
     <header className={`header ${className || ''}`.trim()}>
       <Logo className="header__logo" />
 
-      {isLogged ?
+      {isLoggedIn ?
         <>
           <button className="button header__menu-button" aria-label="Редактировать" onClick={handleOpenHeaderMenu}></button>
           <Navigation isOpen={isNavigationOpen} onClose={handleCloseHeaderMenu} />

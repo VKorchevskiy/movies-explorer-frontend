@@ -13,6 +13,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import { pathsWithFooter, pathsAll } from '../../utils/constant';
 import { filterMovies, filterShortMovies } from '../../utils/halpers';
@@ -140,18 +141,34 @@ function App() {
               const url = match.url.replace(/^.{1}/gi, '');
               return (
                 <>
-                  {pathsAll.includes(url) ? <Header isLogged={true} /> : <></>}
-                  {url === 'movies' ? <Movies
+                  {pathsAll.includes(url) ? <Header /> : <></>}
+                  {url === 'movies' ? <ProtectedRoute
                     movies={movies}
                     isDisplay={isDisplay}
                     searchMovies={searchMovies}
                     isShortMovies={isShortMovies}
                     setIsShortMovies={setIsShortMovies}
+                    isLoggedIn={isLoggedIn}
+                    component={Movies}
                   /> : <></>}
-                  {url === 'saved-movies' ? <SavedMovies /> : <></>}
-                  {url === 'profile' ? <Profile className="app__profile" onLogout={onLogout} /> : <></>}
-                  {pathsWithFooter.includes(url) ? <Footer /> : <></>}
-                  {!pathsAll.includes(url) ? <PageNotFound /> : <></>}
+                  {url === 'saved-movies' ? <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    component={SavedMovies} />
+                    : <></>}
+                  {url === 'profile' ? <ProtectedRoute
+                    className="app__profile"
+                    onLogout={onLogout}
+                    isLoggedIn={isLoggedIn}
+                    component={Profile}
+                  /> : <></>}
+                  {pathsWithFooter.includes(url) ? <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    component={Footer}
+                  /> : <></>}
+                  {!pathsAll.includes(url) ? <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    component={PageNotFound}
+                  /> : <></>}
                 </>
               );
             }}

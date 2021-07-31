@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 function Landing({ className }) {
   return (
     <div className={`landing ${className || ''}`.trim()}>
-      <Header className="landing__header" isLogged={false} />
+      <Header className="landing__header" />
       <Promo className="landing__promo" />
       <NavTab className="landing__nav-tab" />
       <Section title={'О проекте'} className={'landing__about-project'} bookmark={'about-project'}>
