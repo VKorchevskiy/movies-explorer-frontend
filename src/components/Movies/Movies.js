@@ -4,15 +4,25 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const Movies = ({ className, movies, isNotSearched, searchMovies }) => (
+const Movies = ({
+  className,
+  movies,
+  isDisplay,
+  searchMovies,
+  isShortMovies,
+  setIsShortMovies
+}) => {
 
 
-  <main className={`movies ${className || ''}`.trim()}>
-    <SearchForm searchMovies={searchMovies} >
-      <FilterCheckbox />
-    </SearchForm>
-    <MoviesCardList isSaved={false} movies={movies} isNotSearched={isNotSearched} />
-  </main>
-);
+
+  return (
+    <main className={`movies ${className || ''}`.trim()}>
+      <SearchForm searchMovies={searchMovies} >
+        <FilterCheckbox isShortMovies={isShortMovies} setIsShortMovies={setIsShortMovies} />
+      </SearchForm>
+      <MoviesCardList isSaved={false} movies={movies} isDisplay={isDisplay} />
+    </main>
+  )
+};
 
 export default Movies;

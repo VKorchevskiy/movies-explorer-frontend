@@ -1,10 +1,13 @@
 import './Profile.css';
-import React from 'react';
+import React, { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ className, userName }) {
+function Profile({ className, onLogout }) {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className={`profile ${className || ''}`.trim()}>
-      <h2 className="profile__title">Привет, {userName}!</h2>
+      <h2 className="profile__title">Привет, {currentUser.name}!</h2>
       <form className="profile__form" name="profile">
         <div className="profile__container-form">
           <div className="profile__container">
@@ -18,7 +21,7 @@ function Profile({ className, userName }) {
         </div>
         <input className="button profile__button profile__button_submit" type="submit" name="profile" value="Редактировать" />
       </form>
-      <input className="button profile__button profile__button_exit" type="button" name="exit" value="Выйти из аккаунта" />
+      <input className="button profile__button profile__button_exit" type="button" name="exit" value="Выйти из аккаунта" onClick={onLogout} />
     </div>
   )
 }

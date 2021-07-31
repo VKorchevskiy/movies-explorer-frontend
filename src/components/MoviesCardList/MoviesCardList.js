@@ -2,9 +2,9 @@ import './MoviesCardList.css';
 import React from 'react';
 import MovieCard from '../MovieCard/MovieCard';
 
-function MoviesCardList({ className, isSaved, movies, isNotSearched }) {
+const MoviesCardList = ({ className, isSaved, movies, isDisplay }) => {
   return (
-    <div className={`movies-list ${className || ''}`.trim() + ` ${isNotSearched? '' : 'movies-list_disable'}`}>
+    <div className={`movies-list ${className || ''}`.trim() + ` ${isDisplay? '' : 'movies-list_disable'}`}>
       <ul className="movies-list__conteiner">
         {
           movies.map((movie) => <MovieCard key={movie.id} isSaved={isSaved} {...movie} />)

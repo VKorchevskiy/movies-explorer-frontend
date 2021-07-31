@@ -11,7 +11,7 @@ import React from 'react';
  * @param error - текст ошибки
  * @returns - инпут формы авторизации
  */
-function InputAuth({ className, description, nameInput, typeInput, placeholder, error }) {
+function InputAuth({ className, description, nameInput, typeInput, placeholder, error, value, onChange }) {
 
   return (
     <div className={`input-auth ${className || ''}`.trim()}>
@@ -23,6 +23,9 @@ function InputAuth({ className, description, nameInput, typeInput, placeholder, 
         id={nameInput}
         placeholder={placeholder}
         required
+        autoComplete={nameInput}
+        value={value}
+        onChange={onChange}
       />
       <span className={`input-auth__text input-auth__text_error ${error ? 'input-auth__text_error_active' : ''}`}>{error}</span>
     </div>

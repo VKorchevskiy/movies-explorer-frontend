@@ -1,7 +1,7 @@
 import './App.css';
 
-import { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
@@ -15,65 +15,151 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 import { pathsWithFooter, pathsAll } from '../../utils/constant';
-import { filterMovies } from '../../utils/halpers';
+import { filterMovies, filterShortMovies } from '../../utils/halpers';
 import { moviesApi } from '../../utils/MoviesApi.js';
+import { mainApi } from '../../utils/MainApi.js';
 
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 
 function App() {
-  const [isNotSearched, setIsNotSearched] = useState(false);
+  const history = useHistory();
+  const [isDisplay, setIsDisplay] = useState(false);
   const [allMovies, setAllMovies] = useState([])
-  const [movies, setMoviesData] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([])
+  const [isShortMovies, setIsShortMovies] = useState(true);
 
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
 
-  const searchMovies = (dataSearch) => {
-
-    return moviesApi.getMovies()
-      .then((movies) => filterMovies(movies, dataSearch))
-      .then((movies) => {
-        setMoviesData(movies);
-        console.log(movies)
-        setIsNotSearched(true)
+    mainApi
+      .getCurrentUser(jwt)
+      .then((data) => {
+        setCurrentUser({
+          ...currentUser,
+          // _id: data._id,
+          email: data.email,
+          name: data.name,
+        });
+        setIsLoggedIn(true);
       })
-  }
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/movies');
+
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      mainApi.getCurrentUser(localStorage.getItem('jwt'))
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [isLoggedIn]);
+
+  const onLogin = (data) => {
+    return mainApi
+      .authorize(data)
+      .then(({ token }) => {
+        localStorage.setItem('jwt', token);
+        setIsLoggedIn(true);
+        console.log(currentUser)
+        history.push('/movies');
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  };
+
+  const onRegister = (data) => {
+    return mainApi
+      .register(data)
+      .then(() => {
+        onLogin({ email: data.email, password: data.password })
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  };
+
+  const onLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/signin');
+  };
+
+  const searchMovies = (dataSearch) => moviesApi.getMovies()
+    .then((movies) => {
+      localStorage.setItem('movies', JSON.stringify(movies));
+      setIsDisplay(true);
+    })
+    .then(() => {
+      setMovies(JSON.parse(localStorage.getItem('movies')))
+      console.log(movies)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
   return (
-    <Switch>
+    <CurrentUserContext.Provider value={currentUser}>
+      <IsLoggedInContext.Provider value={isLoggedIn}>
+        <Switch>
+          <Route path="/signup" exact>
+            <Register className="app__register" onRegister={onRegister} />
+          </Route>
+          <Route path="/signin" exact>
+            <Login className="app__login" onLogin={onLogin} />
+          </Route>
 
-      <Route path="/signup" exact>
-        <Register className="app__register" />
-      </Route>
-      <Route path="/signin" exact>
-        <Login className="app__login" />
-      </Route>
+          <Route path="/" exact>
+            <Landing />
+          </Route>
 
-      <Route path="/" exact>
-        <Landing />
-      </Route>
+          <Route
+            exact={true}
+            path="/:path"
+            render={({ match }) => {
+              const url = match.url.replace(/^.{1}/gi, '');
+              return (
+                <>
+                  {pathsAll.includes(url) ? <Header isLogged={true} /> : <></>}
+                  {url === 'movies' ? <Movies
+                    movies={movies}
+                    isDisplay={isDisplay}
+                    searchMovies={searchMovies}
+                    isShortMovies={isShortMovies}
+                    setIsShortMovies={setIsShortMovies}
+                  /> : <></>}
+                  {url === 'saved-movies' ? <SavedMovies /> : <></>}
+                  {url === 'profile' ? <Profile className="app__profile" onLogout={onLogout} /> : <></>}
+                  {pathsWithFooter.includes(url) ? <Footer /> : <></>}
+                  {!pathsAll.includes(url) ? <PageNotFound /> : <></>}
+                </>
+              );
+            }}
+          />
+        </Switch>
 
-      <Route
-        exact={true}
-        path="/:path"
-        render={({ match }) => {
-          const url = match.url.replace(/^.{1}/gi, '');
-          return (
-            <>
-              {pathsAll.includes(url) ? <Header isLogged={true} /> : <></>}
-              {url === 'movies' ? <Movies
-                movies={movies}
-                isNotSearched={isNotSearched}
-                searchMovies={searchMovies}
-              /> : <></>}
-              {url === 'saved-movies' ? <SavedMovies /> : <></>}
-              {url === 'profile' ? <Profile className="app__profile" userName="Владимир" /> : <></>}
-              {pathsWithFooter.includes(url) ? <Footer /> : <></>}
-              {!pathsAll.includes(url) ? <PageNotFound /> : <></>}
-            </>
-          );
-        }}
-      />
-
-    </Switch>
+      </IsLoggedInContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
