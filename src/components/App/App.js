@@ -112,8 +112,7 @@ function App() {
       setIsDisplay(true);
     })
     .then(() => {
-      setMovies(JSON.parse(localStorage.getItem('movies')))
-      console.log(movies)
+      setMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch))
     })
     .catch((err) => {
       console.log(err);
@@ -142,6 +141,7 @@ function App() {
               return (
                 <>
                   {pathsAll.includes(url) ? <Header /> : <></>}
+
                   {url === 'movies' ? <ProtectedRoute
                     movies={movies}
                     isDisplay={isDisplay}
@@ -151,20 +151,24 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     component={Movies}
                   /> : <></>}
+
                   {url === 'saved-movies' ? <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     component={SavedMovies} />
                     : <></>}
+
                   {url === 'profile' ? <ProtectedRoute
                     className="app__profile"
                     onLogout={onLogout}
                     isLoggedIn={isLoggedIn}
                     component={Profile}
                   /> : <></>}
+
                   {pathsWithFooter.includes(url) ? <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     component={Footer}
                   /> : <></>}
+
                   {!pathsAll.includes(url) ? <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     component={PageNotFound}
