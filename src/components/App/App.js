@@ -22,6 +22,7 @@ import { mainApi } from '../../utils/MainApi.js';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
+import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 
 function App() {
   const history = useHistory();
@@ -72,6 +73,7 @@ function App() {
         .then(([userData, savedMovies]) => {
           setCurrentUser(userData);
           setSavedMovies(savedMovies);
+          console.log(savedMovies)
         })
         .catch(err => console.log(err));
     }
@@ -124,72 +126,94 @@ function App() {
     .catch(err => console.log(err));
 
   const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
+    .then((newMovie) => {
+      setSavedMovies({
+        ...savedMovies,
+        newMovie
+      })
+      setMovies((state) => state.map((m) => console.log(m)))
+    })
+    .catch(err => console.log(err));
+
+  const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
     .then(res => console.log(res))
     .catch(err => console.log(err));
+
+  const handleMovieLike = (movie) => {
+    const isLiked = savedMovies.some((m) => movie.movieId === m.movieId)
+    console.log(isLiked)
+    if (isLiked) {
+
+    } else {
+      saveMovie(movie);
+    }
+  }
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedInContext.Provider value={isLoggedIn}>
-        <Switch>
-          <Route path="/signup" exact>
-            <Register className="app__register" onRegister={onRegister} />
-          </Route>
-          <Route path="/signin" exact>
-            <Login className="app__login" onLogin={onLogin} />
-          </Route>
+        <SavedMoviesContext.Provider value={savedMovies}>
+          <Switch>
+            <Route path="/signup" exact>
+              <Register className="app__register" onRegister={onRegister} />
+            </Route>
+            <Route path="/signin" exact>
+              <Login className="app__login" onLogin={onLogin} />
+            </Route>
 
-          <Route path="/" exact>
-            <Landing />
-          </Route>
+            <Route path="/" exact>
+              <Landing />
+            </Route>
 
-          <Route
-            exact={true}
-            path="/:path"
-            render={({ match }) => {
-              const url = match.url.replace(/^.{1}/gi, '');
-              return (
-                <>
-                  {pathsAll.includes(url) ? <Header /> : <></>}
+            <Route
+              exact={true}
+              path="/:path"
+              render={({ match }) => {
+                const url = match.url.replace(/^.{1}/gi, '');
+                return (
+                  <>
+                    {pathsAll.includes(url) ? <Header /> : <></>}
 
-                  {url === 'movies' ? <ProtectedRoute
-                    movies={movies}
-                    isDisplay={isDisplay}
-                    searchMovies={searchMovies}
-                    isShortMovies={isShortMovies}
-                    setIsShortMovies={setIsShortMovies}
-                    isLoggedIn={isLoggedIn}
-                    saveMovie={saveMovie}
-                    component={Movies}
-                  /> : <></>}
+                    {url === 'movies' ? <ProtectedRoute
+                      movies={movies}
+                      isDisplay={isDisplay}
+                      searchMovies={searchMovies}
+                      isShortMovies={isShortMovies}
+                      setIsShortMovies={setIsShortMovies}
+                      isLoggedIn={isLoggedIn}
+                      onMovieLike={handleMovieLike}
+                      component={Movies}
+                    /> : <></>}
 
-                  {url === 'saved-movies' ? <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                    component={SavedMovies} />
-                    : <></>}
+                    {url === 'saved-movies' ? <ProtectedRoute
+                      isLoggedIn={isLoggedIn}
+                      component={SavedMovies} />
+                      : <></>}
 
-                  {url === 'profile' ? <ProtectedRoute
-                    className="app__profile"
-                    onLogout={onLogout}
-                    isLoggedIn={isLoggedIn}
-                    editProfile={editProfile}
-                    component={Profile}
-                  /> : <></>}
+                    {url === 'profile' ? <ProtectedRoute
+                      className="app__profile"
+                      onLogout={onLogout}
+                      isLoggedIn={isLoggedIn}
+                      editProfile={editProfile}
+                      component={Profile}
+                    /> : <></>}
 
-                  {pathsWithFooter.includes(url) ? <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                    component={Footer}
-                  /> : <></>}
+                    {pathsWithFooter.includes(url) ? <ProtectedRoute
+                      isLoggedIn={isLoggedIn}
+                      component={Footer}
+                    /> : <></>}
 
-                  {!pathsAll.includes(url) ? <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                    component={PageNotFound}
-                  /> : <></>}
-                </>
-              );
-            }}
-          />
-        </Switch>
-
+                    {!pathsAll.includes(url) ? <ProtectedRoute
+                      isLoggedIn={isLoggedIn}
+                      component={PageNotFound}
+                    /> : <></>}
+                  </>
+                );
+              }}
+            />
+          </Switch>
+        </SavedMoviesContext.Provider>
       </IsLoggedInContext.Provider>
     </CurrentUserContext.Provider>
   );

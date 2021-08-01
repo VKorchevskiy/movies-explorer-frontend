@@ -1,3 +1,5 @@
+import {optionsMoviesApi} from './constant';
+
 export const checkResponse = (res) => res.ok
   ? res.json() :
   Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
@@ -22,3 +24,20 @@ export const filterMovies = (movies, dataSearch) => movies.filter((movie) => {
 export const filterShortMovies = (movies, isShortMovies) => {
   return isShortMovies ? movies : movies.filter((movie) => movie.duration < 40 )
 };
+
+export const convertMovieProps = (props) => {
+  const movie = {
+    country: props.country,
+    director: props.director,
+    duration: props.duration,
+    year: props.year,
+    description: props.description,
+    image: optionsMoviesApi.baseUrl + props.image.url,
+    trailer: props.trailerLink,
+    thumbnail: optionsMoviesApi.baseUrl + props.image.formats.thumbnail.url,
+    movieId: props.id,
+    nameRU: props.nameRU,
+    nameEN: props.nameEN,
+  }
+  return movie
+}
