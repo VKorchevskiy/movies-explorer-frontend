@@ -26,9 +26,9 @@ import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 function App() {
   const history = useHistory();
   const [isDisplay, setIsDisplay] = useState(false);
-  const [allMovies, setAllMovies] = useState([])
   const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([])
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShortMovies, setIsShortMovies] = useState(true);
 
   const [currentUser, setCurrentUser] = useState({});
@@ -45,7 +45,7 @@ function App() {
       .then((data) => {
         setCurrentUser({
           ...currentUser,
-          // _id: data._id,
+          _id: data._id,
           email: data.email,
           name: data.name,
         });
@@ -67,9 +67,11 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      mainApi.getCurrentUser(localStorage.getItem('jwt'))
-        .then((userData) => {
+      const jwt = localStorage.getItem('jwt');
+      Promise.all([mainApi.getCurrentUser(jwt), mainApi.getSavedMovies(jwt)])
+        .then(([userData, savedMovies]) => {
           setCurrentUser(userData);
+          setSavedMovies(savedMovies);
         })
         .catch(err => console.log(err));
     }
@@ -81,12 +83,9 @@ function App() {
       .then(({ token }) => {
         localStorage.setItem('jwt', token);
         setIsLoggedIn(true);
-        console.log(currentUser)
         history.push('/movies');
       })
-      .catch(err => {
-        console.log(err)
-      });
+      .catch(err => console.log(err));
   };
 
   const onRegister = (data) => {
@@ -95,9 +94,7 @@ function App() {
       .then(() => {
         onLogin({ email: data.email, password: data.password })
       })
-      .catch(err => {
-        console.log(err)
-      });
+      .catch(err => console.log(err));
   };
 
   const onLogout = () => {
@@ -113,9 +110,7 @@ function App() {
       .then(res => {
         setCurrentUser(res);
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(err => console.log(err));
   }
 
   const searchMovies = (dataSearch) => moviesApi.getMovies()
@@ -126,9 +121,11 @@ function App() {
     .then(() => {
       setMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch))
     })
-    .catch((err) => {
-      console.log(err);
-    })
+    .catch(err => console.log(err));
+
+  const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -161,6 +158,7 @@ function App() {
                     isShortMovies={isShortMovies}
                     setIsShortMovies={setIsShortMovies}
                     isLoggedIn={isLoggedIn}
+                    saveMovie={saveMovie}
                     component={Movies}
                   /> : <></>}
 

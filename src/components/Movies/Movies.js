@@ -8,6 +8,7 @@ const Movies = ({
   className,
   movies,
   isDisplay,
+  saveMovie,
   searchMovies,
   isShortMovies,
   setIsShortMovies
@@ -20,7 +21,7 @@ const Movies = ({
       <SearchForm searchMovies={searchMovies} >
         <FilterCheckbox isShortMovies={isShortMovies} setIsShortMovies={setIsShortMovies} />
       </SearchForm>
-      <MoviesCardList isSaved={false} movies={movies} isDisplay={isDisplay} />
+      <MoviesCardList isSaved={false} movies={movies} isDisplay={isDisplay} saveMovie={saveMovie} />
     </main>
   )
 };
