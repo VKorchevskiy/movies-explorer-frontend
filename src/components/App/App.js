@@ -22,19 +22,29 @@ import { mainApi } from '../../utils/MainApi.js';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
+
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 
 function App() {
   const history = useHistory();
+
   const [isDisplay, setIsDisplay] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isShortMovies, setIsShortMovies] = useState(true);
+  const [setupedFilteredMovies, setSetupedFilteredMovies] = useState([]);
+  const [isShortMovies, setIsShortMovies] = useState(false);
+
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedFilteredMovies, setSavedFilteredMovies] = useState([]);
+  const [setupedFilteredSavedMovies, setSetupedFilteredSavedMovies] = useState([]);
+  const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -62,7 +72,6 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       history.push('/movies');
-
     }
   }, [isLoggedIn]);
 
@@ -70,10 +79,9 @@ function App() {
     if (isLoggedIn) {
       const jwt = localStorage.getItem('jwt');
       Promise.all([mainApi.getCurrentUser(jwt), mainApi.getSavedMovies(jwt)])
-        .then(([userData, savedMovies]) => {
-          setCurrentUser(userData);
+        .then(([currentUser, savedMovies]) => {
+          setCurrentUser(currentUser);
           setSavedMovies(savedMovies);
-          console.log(savedMovies)
         })
         .catch(err => console.log(err));
     }
@@ -106,6 +114,7 @@ function App() {
     history.push('/signin');
   };
 
+  //-------------------------------РЕДАКТИРОВАНИЕ ПРОФИЛЯ-------------------------------//
   const editProfile = ({ name, email }) => {
     return mainApi
       .putchUser({ name, email }, localStorage.getItem('jwt'))
@@ -115,16 +124,54 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  const searchMovies = (dataSearch) => moviesApi.getMovies()
-    .then((movies) => {
-      localStorage.setItem('movies', JSON.stringify(movies));
-      setIsDisplay(true);
-    })
-    .then(() => {
-      setMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch))
-    })
-    .catch(err => console.log(err));
+  //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (ВСЕ + СОХРАНЕННЫЕ)-----------------------------//
+  const searchMovies = (dataSearch) => {
+    setIsLoading(true);
+    return moviesApi.getMovies()
+      .then((movies) => {
+        localStorage.setItem('movies', JSON.stringify(movies));
+        setMovies(JSON.parse(localStorage.getItem('movies')));
+        setIsDisplay(true);
+      })
+      .then(() => {
+        setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
+        isShortMovies
+          ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
+          : setSetupedFilteredMovies(filteredMovies);
+        setIsLoading(false);
+      })
+      .catch(err => console.log(err));
+  }
 
+  useEffect(() => {
+    isShortMovies
+      ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
+      : setSetupedFilteredMovies(filteredMovies);
+  }, [filteredMovies, isShortMovies]);
+
+  const searchSavedMovies = (dataSearch) => {
+    setIsLoading(true);
+
+
+
+    return mainApi.getMovies()
+      .then((movies) => {
+        setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
+        isShortMovies
+          ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
+          : setSetupedFilteredMovies(filteredMovies);
+        setIsLoading(false);
+      })
+      .catch(err => console.log(err));
+  }
+
+  // useEffect(() => {
+  //   isShortMovies
+  //     ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
+  //     : setSetupedFilteredMovies(filteredMovies);
+  // }, [filteredMovies, isShortMovies]);
+
+  //-----------------------------СОХРАНЕНИЕ, УДАЛЕНИЕ ФИЛЬМА-----------------------------//
   const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
     .then((newMovie) => {
       setSavedMovies({
@@ -142,11 +189,13 @@ function App() {
   const handleMovieLike = (movie) => {
     const isLiked = savedMovies.some((m) => movie.movieId === m.movieId)
     console.log(isLiked)
+    console.log(savedMovies)
     if (isLiked) {
-
+      deleteMovie({ id: movie.id })
     } else {
       saveMovie(movie);
     }
+    console.log(savedMovies)
   }
 
 
@@ -171,22 +220,30 @@ function App() {
               path="/:path"
               render={({ match }) => {
                 const url = match.url.replace(/^.{1}/gi, '');
+                console.log(url)
                 return (
                   <>
                     {pathsAll.includes(url) ? <Header /> : <></>}
 
                     {url === 'movies' ? <ProtectedRoute
-                      movies={movies}
+                      movies={setupedFilteredMovies}
                       isDisplay={isDisplay}
                       searchMovies={searchMovies}
                       isShortMovies={isShortMovies}
                       setIsShortMovies={setIsShortMovies}
+                      isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
-                      onMovieLike={handleMovieLike}
+                      // onMovieLike={handleMovieLike}
                       component={Movies}
                     /> : <></>}
 
                     {url === 'saved-movies' ? <ProtectedRoute
+                      movies={savedMovies}
+                      isDisplay={true}
+                      searchMovies={searchSavedMovies}
+                      isShortMovies={isShortSavedMovies}
+                      setIsShortMovies={setIsShortSavedMovies}
+                      isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
                       component={SavedMovies} />
                       : <></>}

@@ -4,12 +4,31 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const SavedMovies = ({ className }) => (
+const SavedMovies = ({
+  className,
+  movies,
+  isDisplay,
+  searchMovies,
+  isShortMovies,
+  setIsShortMovies,
+  isLoading,
+  isLoggedIn,
+
+  onMovieLike,
+}) => (
   <main className={`saved-movies ${className || ''}`.trim()}>
-    <SearchForm>
-      <FilterCheckbox />
+    <SearchForm searchMovies={searchMovies}>
+      <FilterCheckbox
+        isShortMovies={isShortMovies}
+        setIsShortMovies={setIsShortMovies}
+      />
     </SearchForm>
-    <MoviesCardList isSaved={true} />
+    <MoviesCardList
+      isSaved={true}
+      movies={movies}
+      isDisplay={isDisplay}
+      onMovieLike={onMovieLike}
+    />
   </main>
 );
 

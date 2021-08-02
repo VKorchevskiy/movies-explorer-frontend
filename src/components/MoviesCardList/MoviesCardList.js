@@ -8,7 +8,7 @@ const MoviesCardList = ({ className, isSaved, movies, isDisplay, onMovieLike }) 
       <ul className="movies-list__conteiner">
         {
           movies.map((movie) => <MovieCard
-            key={movie.id}
+            key={isSaved ? movie._id : movie.id}
             isSaved={isSaved}
             onMovieLike={onMovieLike}
             {...movie}

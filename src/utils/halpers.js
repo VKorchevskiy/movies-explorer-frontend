@@ -21,9 +21,7 @@ export const filterMovies = (movies, dataSearch) => movies.filter((movie) => {
   )
 })
 
-export const filterShortMovies = (movies, isShortMovies) => {
-  return isShortMovies ? movies : movies.filter((movie) => movie.duration < 40 )
-};
+export const filterShortMovies = (movies) => movies.filter((movie) => movie.duration < 40 );
 
 export const convertMovieProps = (props) => {
   const movie = {

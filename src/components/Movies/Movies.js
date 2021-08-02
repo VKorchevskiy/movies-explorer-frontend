@@ -3,15 +3,19 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
 const Movies = ({
   className,
   movies,
   isDisplay,
-  onMovieLike,
   searchMovies,
   isShortMovies,
-  setIsShortMovies
+  setIsShortMovies,
+  isLoading,
+  isLoggedIn,
+
+  onMovieLike,
 }) => {
 
   return (
@@ -21,12 +25,16 @@ const Movies = ({
           isShortMovies={isShortMovies}
           setIsShortMovies={setIsShortMovies} />
       </SearchForm>
-      <MoviesCardList
-        isSaved={false}
-        movies={movies}
-        isDisplay={isDisplay}
-        onMovieLike={onMovieLike}
-      />
+      {
+        isLoading
+          ? <Preloader />
+          : <MoviesCardList
+            isSaved={false}
+            movies={movies}
+            isDisplay={isDisplay}
+            onMovieLike={onMovieLike}
+          />
+      }
     </main>
   )
 };
