@@ -5,7 +5,7 @@ import { convertDuration, convertMovieProps } from '../../utils/halpers';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 
-const MovieCard = ({ className, isSaved, onMovieLike, ...props }) => {
+const MovieCard = ({ className, isSavedPage, onMovieLike, ...props }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isMovieSaved, setIsMovieSaved] = useState(false);
 
@@ -14,13 +14,13 @@ const MovieCard = ({ className, isSaved, onMovieLike, ...props }) => {
   return (
     <li className={`movie-card ${className || ''}`.trim()}>
       <figure className="movie-card__figure">
-        <a className="link movie-card__link" href={props.trailerLink} target="_blank" rel="noreferrer" >
-          <img className="movie-card__image" src={isSaved ? props.image : `${optionsMoviesApi.baseUrl + props.image.url}`} alt={`Постер к фильму: "${props.nameRU}".`} />
+        <a className="link movie-card__link" href={isSavedPage ? props.trailer : props.trailerLink} target="_blank" rel="noreferrer" >
+          <img className="movie-card__image" src={isSavedPage ? props.image : `${optionsMoviesApi.baseUrl + props.image.url}`} alt={`Постер к фильму: "${props.nameRU}".`} />
         </a>
         <figcaption className="movie-card__caption">
           <h2 className="movie-card__title">{props.nameRU}</h2>
           <button
-            className={`button movie-card__button ${isLiked ? 'movie-card__button_like-active' : 'movie-card__button_like'} ${isSaved ? 'movie-card__button_disable' : ''}`.trim()}
+            className={`button movie-card__button ${isLiked ? 'movie-card__button_like-active' : 'movie-card__button_like'} ${isSavedPage ? 'movie-card__button_disable' : ''}`.trim()}
             type="button"
             aria-label="Нравится"
             onClick={() => {
@@ -29,7 +29,7 @@ const MovieCard = ({ className, isSaved, onMovieLike, ...props }) => {
             }}
           ></button>
           <button
-            className={`button movie-card__button movie-card__button_delete type="button ${!isSaved ? 'movie-card__button_disable' : ''}`.trim()}
+            className={`button movie-card__button movie-card__button_delete type="button ${!isSavedPage ? 'movie-card__button_disable' : ''}`.trim()}
             type="button"
             aria-label="Удалить"
             onClick={() => {

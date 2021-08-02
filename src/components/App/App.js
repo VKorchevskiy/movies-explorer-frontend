@@ -35,8 +35,8 @@ function App() {
   const [isShortMovies, setIsShortMovies] = useState(false);
 
   const [savedMovies, setSavedMovies] = useState([]);
-  const [savedFilteredMovies, setSavedFilteredMovies] = useState([]);
-  const [setupedFilteredSavedMovies, setSetupedFilteredSavedMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [setupedFilteredSavedMovies, setSetupedFilteredSavedMovies] = useState(savedMovies);
   const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +124,7 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (ВСЕ + СОХРАНЕННЫЕ)-----------------------------//
+  //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
   const searchMovies = (dataSearch) => {
     setIsLoading(true);
     return moviesApi.getMovies()
@@ -135,9 +135,6 @@ function App() {
       })
       .then(() => {
         setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
-        isShortMovies
-          ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
-          : setSetupedFilteredMovies(filteredMovies);
         setIsLoading(false);
       })
       .catch(err => console.log(err));
@@ -149,54 +146,47 @@ function App() {
       : setSetupedFilteredMovies(filteredMovies);
   }, [filteredMovies, isShortMovies]);
 
+  //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (SAVED-MOVIES)-----------------------------//
+  useEffect(() => {
+    setSetupedFilteredSavedMovies(savedMovies);
+  }, [savedMovies])
+
   const searchSavedMovies = (dataSearch) => {
-    setIsLoading(true);
-
-
-
-    return mainApi.getMovies()
-      .then((movies) => {
-        setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
-        isShortMovies
-          ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
-          : setSetupedFilteredMovies(filteredMovies);
-        setIsLoading(false);
-      })
-      .catch(err => console.log(err));
+    setFilteredSavedMovies(filterMovies(savedMovies, dataSearch));
   }
 
-  // useEffect(() => {
-  //   isShortMovies
-  //     ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
-  //     : setSetupedFilteredMovies(filteredMovies);
-  // }, [filteredMovies, isShortMovies]);
+  useEffect(() => {
+    isShortSavedMovies
+      ? setSetupedFilteredSavedMovies(filterShortMovies(filteredSavedMovies))
+      : setSetupedFilteredSavedMovies(filteredSavedMovies);
+  }, [filteredSavedMovies, isShortSavedMovies]);
 
   //-----------------------------СОХРАНЕНИЕ, УДАЛЕНИЕ ФИЛЬМА-----------------------------//
-  const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
-    .then((newMovie) => {
-      setSavedMovies({
-        ...savedMovies,
-        newMovie
-      })
-      setMovies((state) => state.map((m) => console.log(m)))
-    })
-    .catch(err => console.log(err));
+  // const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
+  //   .then((newMovie) => {
+  //     setSavedMovies({
+  //       ...savedMovies,
+  //       newMovie
+  //     })
+  //     setMovies((state) => state.map((m) => console.log(m)))
+  //   })
+  //   .catch(err => console.log(err));
 
-  const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+  // const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
+  //   .then(res => console.log(res))
+  //   .catch(err => console.log(err));
 
-  const handleMovieLike = (movie) => {
-    const isLiked = savedMovies.some((m) => movie.movieId === m.movieId)
-    console.log(isLiked)
-    console.log(savedMovies)
-    if (isLiked) {
-      deleteMovie({ id: movie.id })
-    } else {
-      saveMovie(movie);
-    }
-    console.log(savedMovies)
-  }
+  // const handleMovieLike = (movie) => {
+  //   const isLiked = savedMovies.some((m) => movie.movieId === m.movieId)
+  //   console.log(isLiked)
+  //   console.log(savedMovies)
+  //   if (isLiked) {
+  //     deleteMovie({ id: movie.id })
+  //   } else {
+  //     saveMovie(movie);
+  //   }
+  //   console.log(savedMovies)
+  // }
 
 
   return (
@@ -220,7 +210,6 @@ function App() {
               path="/:path"
               render={({ match }) => {
                 const url = match.url.replace(/^.{1}/gi, '');
-                console.log(url)
                 return (
                   <>
                     {pathsAll.includes(url) ? <Header /> : <></>}
@@ -238,7 +227,7 @@ function App() {
                     /> : <></>}
 
                     {url === 'saved-movies' ? <ProtectedRoute
-                      movies={savedMovies}
+                      movies={setupedFilteredSavedMovies}
                       isDisplay={true}
                       searchMovies={searchSavedMovies}
                       isShortMovies={isShortSavedMovies}

@@ -29,7 +29,7 @@ const Movies = ({
         isLoading
           ? <Preloader />
           : <MoviesCardList
-            isSaved={false}
+            isSavedPage={false}
             movies={movies}
             isDisplay={isDisplay}
             onMovieLike={onMovieLike}

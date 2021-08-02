@@ -24,7 +24,7 @@ const SavedMovies = ({
       />
     </SearchForm>
     <MoviesCardList
-      isSaved={true}
+      isSavedPage={true}
       movies={movies}
       isDisplay={isDisplay}
       onMovieLike={onMovieLike}
