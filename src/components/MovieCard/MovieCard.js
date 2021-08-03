@@ -1,19 +1,13 @@
 import './MovieCard.css';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { optionsMoviesApi } from '../../utils/constant';
 import { convertDuration, convertMovieProps } from '../../utils/halpers';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 
 const MovieCard = ({ className, isSavedPage, onMovieButton, ...props }) => {
-  const currentUser = useContext(CurrentUserContext);
   const savedMovies = useContext(SavedMoviesContext)
-  // const [isMovieSaved, setIsMovieSaved] = useState(false);
 
-  const {isLiked = savedMovies.some((savedMovie) => {
-    console.log(props, savedMovie);
-    return (props.movieId || props.id) === savedMovie.movieId
-  })} = false;
+  const isLiked = savedMovies.some((savedMovie) => (props.movieId || props.id) === savedMovie.movieId);
 
   return (
     <li className={`movie-card ${className || ''}`.trim()}>
@@ -28,7 +22,6 @@ const MovieCard = ({ className, isSavedPage, onMovieButton, ...props }) => {
             type="button"
             aria-label="Нравится"
             onClick={() => {
-              console.log(props)
               onMovieButton(isLiked, convertMovieProps(props));
             }}
           ></button>

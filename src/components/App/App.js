@@ -165,17 +165,16 @@ function App() {
   //-----------------------------СОХРАНЕНИЕ, УДАЛЕНИЕ ФИЛЬМА-----------------------------//
   const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
     .then((newMovie) => {
-      setSavedMovies({
+      setSavedMovies([
         ...savedMovies,
         newMovie
-      })
+      ])
       // setFilteredMovies((state) => state.map(((m) => m.id !== movie.id)))
     })
     .catch(err => console.log(err));
 
   const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
-    .then((res) => {
-      console.log(res);
+    .then(() => {
       setSavedMovies((state) => state.filter((m) => m._id !== id));
       setFilteredSavedMovies((state) => state.filter((m) => m._id !== id));
       setSetupedFilteredSavedMovies((state) => state.filter((m) => m._id !== id));
@@ -187,16 +186,12 @@ function App() {
 
 
   const handleLikeMovie = (isLiked, movie) => {
-    // const isLiked = savedMovies.some((savedMovie) => movie.movieId === savedMovie.movieId);
-
-    console.log(movie)
     if (isLiked) {
       const _id = savedMovies.find((m) => m.movieId === movie.movieId)._id;
       deleteMovie(_id)
     } else {
       saveMovie(movie);
     }
-    // console.log(savedMovies)
   }
 
 
