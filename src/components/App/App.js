@@ -122,7 +122,7 @@ function App() {
         setCurrentUser(res);
       })
       .catch(err => console.log(err));
-  }
+  };
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
   const searchMovies = (dataSearch) => {
@@ -138,7 +138,7 @@ function App() {
         setIsLoading(false);
       })
       .catch(err => console.log(err));
-  }
+  };
 
   useEffect(() => {
     isShortMovies
@@ -149,11 +149,12 @@ function App() {
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (SAVED-MOVIES)-----------------------------//
   useEffect(() => {
     setSetupedFilteredSavedMovies(savedMovies);
-  }, [savedMovies])
+    setFilteredSavedMovies(savedMovies)
+  }, [savedMovies]);
 
   const searchSavedMovies = (dataSearch) => {
     setFilteredSavedMovies(filterMovies(savedMovies, dataSearch));
-  }
+  };
 
   useEffect(() => {
     isShortSavedMovies
@@ -162,31 +163,41 @@ function App() {
   }, [filteredSavedMovies, isShortSavedMovies]);
 
   //-----------------------------СОХРАНЕНИЕ, УДАЛЕНИЕ ФИЛЬМА-----------------------------//
-  // const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
-  //   .then((newMovie) => {
-  //     setSavedMovies({
-  //       ...savedMovies,
-  //       newMovie
-  //     })
-  //     setMovies((state) => state.map((m) => console.log(m)))
-  //   })
-  //   .catch(err => console.log(err));
+  const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
+    .then((newMovie) => {
+      setSavedMovies({
+        ...savedMovies,
+        newMovie
+      })
+      // setFilteredMovies((state) => state.map(((m) => m.id !== movie.id)))
+    })
+    .catch(err => console.log(err));
 
-  // const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
-  //   .then(res => console.log(res))
-  //   .catch(err => console.log(err));
+  const deleteMovie = (id) => mainApi.deleteMovie(id, localStorage.getItem('jwt'))
+    .then((res) => {
+      console.log(res);
+      setSavedMovies((state) => state.filter((m) => m._id !== id));
+      setFilteredSavedMovies((state) => state.filter((m) => m._id !== id));
+      setSetupedFilteredSavedMovies((state) => state.filter((m) => m._id !== id));
+    })
+    .catch(err => console.log(err));
 
-  // const handleMovieLike = (movie) => {
-  //   const isLiked = savedMovies.some((m) => movie.movieId === m.movieId)
-  //   console.log(isLiked)
-  //   console.log(savedMovies)
-  //   if (isLiked) {
-  //     deleteMovie({ id: movie.id })
-  //   } else {
-  //     saveMovie(movie);
-  //   }
-  //   console.log(savedMovies)
-  // }
+  const handleDeleteMovie = (id) => deleteMovie(id);
+
+
+
+  const handleLikeMovie = (isLiked, movie) => {
+    // const isLiked = savedMovies.some((savedMovie) => movie.movieId === savedMovie.movieId);
+
+    console.log(movie)
+    if (isLiked) {
+      const _id = savedMovies.find((m) => m.movieId === movie.movieId)._id;
+      deleteMovie(_id)
+    } else {
+      saveMovie(movie);
+    }
+    // console.log(savedMovies)
+  }
 
 
   return (
@@ -222,7 +233,7 @@ function App() {
                       setIsShortMovies={setIsShortMovies}
                       isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
-                      // onMovieLike={handleMovieLike}
+                      onMovieButton={handleLikeMovie}
                       component={Movies}
                     /> : <></>}
 
@@ -234,6 +245,7 @@ function App() {
                       setIsShortMovies={setIsShortSavedMovies}
                       isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
+                      onMovieButton={handleDeleteMovie}
                       component={SavedMovies} />
                       : <></>}
 

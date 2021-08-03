@@ -15,7 +15,7 @@ const Movies = ({
   isLoading,
   isLoggedIn,
 
-  onMovieLike,
+  onMovieButton,
 }) => {
 
   return (
@@ -32,7 +32,7 @@ const Movies = ({
             isSavedPage={false}
             movies={movies}
             isDisplay={isDisplay}
-            onMovieLike={onMovieLike}
+            onMovieButton={onMovieButton}
           />
       }
     </main>

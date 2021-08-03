@@ -5,11 +5,15 @@ import { convertDuration, convertMovieProps } from '../../utils/halpers';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 
-const MovieCard = ({ className, isSavedPage, onMovieLike, ...props }) => {
+const MovieCard = ({ className, isSavedPage, onMovieButton, ...props }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [isMovieSaved, setIsMovieSaved] = useState(false);
+  const savedMovies = useContext(SavedMoviesContext)
+  // const [isMovieSaved, setIsMovieSaved] = useState(false);
 
-  const isLiked = false /* savedMovies.some((savedMovie) => props.id === savedMovie.movieId) */;
+  const {isLiked = savedMovies.some((savedMovie) => {
+    console.log(props, savedMovie);
+    return (props.movieId || props.id) === savedMovie.movieId
+  })} = false;
 
   return (
     <li className={`movie-card ${className || ''}`.trim()}>
@@ -25,17 +29,14 @@ const MovieCard = ({ className, isSavedPage, onMovieLike, ...props }) => {
             aria-label="Нравится"
             onClick={() => {
               console.log(props)
-              // onMovieLike(convertMovieProps(props))
+              onMovieButton(isLiked, convertMovieProps(props));
             }}
           ></button>
           <button
             className={`button movie-card__button movie-card__button_delete type="button ${!isSavedPage ? 'movie-card__button_disable' : ''}`.trim()}
             type="button"
             aria-label="Удалить"
-            onClick={() => {
-              console.log(props)
-              // onMovieLike(convertMovieProps(props))
-            }}
+            onClick={() => onMovieButton(props._id)}
           ></button>
         </figcaption>
       </figure>

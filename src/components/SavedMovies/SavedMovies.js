@@ -14,7 +14,7 @@ const SavedMovies = ({
   isLoading,
   isLoggedIn,
 
-  onMovieLike,
+  onMovieButton,
 }) => (
   <main className={`saved-movies ${className || ''}`.trim()}>
     <SearchForm searchMovies={searchMovies}>
@@ -27,7 +27,7 @@ const SavedMovies = ({
       isSavedPage={true}
       movies={movies}
       isDisplay={isDisplay}
-      onMovieLike={onMovieLike}
+      onMovieButton={onMovieButton}
     />
   </main>
 );
