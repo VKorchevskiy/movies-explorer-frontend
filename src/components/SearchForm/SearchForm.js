@@ -1,5 +1,5 @@
 import './SearchForm.css';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function SearchForm({ children, className, searchMovies }) {
@@ -16,7 +16,7 @@ function SearchForm({ children, className, searchMovies }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isValid.search) {
+    if (!isValid) {
       return;
     }
     searchMovies(values);

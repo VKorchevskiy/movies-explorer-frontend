@@ -183,8 +183,6 @@ function App() {
 
   const handleDeleteMovie = (id) => deleteMovie(id);
 
-
-
   const handleLikeMovie = (isLiked, movie) => {
     if (isLiked) {
       const _id = savedMovies.find((m) => m.movieId === movie.movieId)._id;

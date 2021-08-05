@@ -5,7 +5,7 @@ import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import InputAuth from '../InputAuth/InputAuth';
 import SubmitAuth from '../SubmitAuthForm/SubmitAuth';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
-
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register({ className, onRegister }) {
   const [registerData, setRegisterData] = useState({
