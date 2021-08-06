@@ -1,5 +1,5 @@
 import './Register.css';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import InputAuth from '../InputAuth/InputAuth';
@@ -8,32 +8,20 @@ import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register({ className, onRegister }) {
-  const [registerData, setRegisterData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
+  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
   const isLoggedIn = useContext(IsLoggedInContext);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRegisterData({
-      ...registerData,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!registerData.name || !registerData.email || !registerData.password) {
+    if (!isValid) {
       return;
     }
 
-    setRegisterData({
-      ...registerData,
+    setValues({
+      ...values,
     });
 
-    onRegister(registerData);
+    onRegister(values);
   };
 
   return (
@@ -49,8 +37,8 @@ function Register({ className, onRegister }) {
               nameInput="name"
               typeInput="text"
               placeholder="Введите имя"
-              error=""
-              value={registerData.name}
+              error={errors.name}
+              value={values.name}
               onChange={handleChange}
             />
             <InputAuth
@@ -59,8 +47,8 @@ function Register({ className, onRegister }) {
               nameInput="email"
               typeInput="email"
               placeholder="Введите e-mail"
-              error=""
-              value={registerData.email}
+              error={errors.email}
+              value={values.email}
               onChange={handleChange}
             />
             <InputAuth
@@ -69,8 +57,8 @@ function Register({ className, onRegister }) {
               nameInput="password"
               typeInput="password"
               placeholder="Введите пароль"
-              error="Что-то пошло не так..." //для отображения
-              value={registerData.password}
+              error={errors.password}
+              value={values.password}
               onChange={handleChange}
             />
           </div>

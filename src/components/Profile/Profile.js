@@ -1,33 +1,38 @@
 import './Profile.css';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Profile({ className, onLogout, editProfile }) {
+  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
+  const isLoggedIn = useContext(IsLoggedInContext);
   const currentUser = useContext(CurrentUserContext);
-  const [userData, setUserData] = useState({
-    name: currentUser.name,
-    email: currentUser.email,
-  })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
+  // const [userData, setUserData] = useState({
+  //   name: currentUser.name,
+  //   email: currentUser.email,
+  // })
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setUserData({
+  //     ...userData,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!userData.name || !userData.email) {
+    if (!isValid) {
       return;
     }
 
-    setUserData({
-      ...userData,
+    setValues({
+      ...values,
     });
 
-    editProfile(userData);
+    editProfile(values);
   };
 
 
@@ -45,9 +50,10 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите имя"
               required
               autoComplete="name"
-              value={userData.name}
+              value={values.name}
               onChange={handleChange}
             />
+            <span>{errors.name}</span>
           </div>
           <div className="profile__container">
             <p className="profile__description">E-mail</p>
@@ -58,9 +64,10 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите e-mail"
               required
               autoComplete="e-mail"
-              value={userData.email}
+              value={values.email}
               onChange={handleChange}
             />
+            <span>{errors.email}</span>
           </div>
         </div>
         <input className="button profile__button profile__button_submit" type="submit" name="profile" value="Редактировать" />

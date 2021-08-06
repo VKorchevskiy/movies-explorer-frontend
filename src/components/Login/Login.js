@@ -1,42 +1,31 @@
 import './Login.css';
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import InputAuth from '../InputAuth/InputAuth';
 import SubmitAuth from '../SubmitAuthForm/SubmitAuth';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Login({ className, onLogin }) {
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  })
+  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
   const isLoggedIn = useContext(IsLoggedInContext);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!loginData.email || !loginData.password) {
+    if (!isValid) {
       return;
     }
-
-    setLoginData({
-      ...loginData,
+    setValues({
+      ...values,
     });
-
-    onLogin(loginData);
+    onLogin(values);
+    resetForm();
   };
 
   return (
     <>
-    {isLoggedIn && <Redirect to="/movies" />}
+      {isLoggedIn && <Redirect to="/movies" />}
       <div className={`login ${className || ''}`.trim()}>
         <HeaderAuth className="login__header-auth" title="Рады видеть!" />
         <form className="login__form" name="register" onSubmit={handleSubmit}>
@@ -47,8 +36,8 @@ function Login({ className, onLogin }) {
               nameInput="email"
               typeInput="email"
               placeholder="Введите e-mail"
-              error=""
-              value={loginData.email}
+              error={errors.email}
+              value={values.email}
               onChange={handleChange}
             />
             <InputAuth
@@ -57,8 +46,8 @@ function Login({ className, onLogin }) {
               nameInput="password"
               typeInput="password"
               placeholder="Введите пароль"
-              error="Что-то пошло не так..."
-              value={loginData.password}
+              error={errors.password}
+              value={values.password}
               onChange={handleChange}
             />
           </div>
