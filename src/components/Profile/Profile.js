@@ -50,7 +50,7 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите имя"
               required
               autoComplete="name"
-              value={values.name}
+              value={values.name || ''}
               onChange={handleChange}
             />
             <span>{errors.name}</span>
@@ -64,7 +64,7 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите e-mail"
               required
               autoComplete="e-mail"
-              value={values.email}
+              value={values.email || ''}
               onChange={handleChange}
             />
             <span>{errors.email}</span>

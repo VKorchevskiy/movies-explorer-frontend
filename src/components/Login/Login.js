@@ -37,7 +37,7 @@ function Login({ className, onLogin }) {
               typeInput="email"
               placeholder="Введите e-mail"
               error={errors.email}
-              value={values.email}
+              value={values.email || ''}
               onChange={handleChange}
             />
             <InputAuth
@@ -47,7 +47,7 @@ function Login({ className, onLogin }) {
               typeInput="password"
               placeholder="Введите пароль"
               error={errors.password}
-              value={values.password}
+              value={values.password || ''}
               onChange={handleChange}
             />
           </div>

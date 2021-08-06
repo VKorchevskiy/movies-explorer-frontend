@@ -38,7 +38,7 @@ function Register({ className, onRegister }) {
               typeInput="text"
               placeholder="Введите имя"
               error={errors.name}
-              value={values.name}
+              value={values.name || ''}
               onChange={handleChange}
             />
             <InputAuth
@@ -48,7 +48,7 @@ function Register({ className, onRegister }) {
               typeInput="email"
               placeholder="Введите e-mail"
               error={errors.email}
-              value={values.email}
+              value={values.email || ''}
               onChange={handleChange}
             />
             <InputAuth
@@ -58,7 +58,7 @@ function Register({ className, onRegister }) {
               typeInput="password"
               placeholder="Введите пароль"
               error={errors.password}
-              value={values.password}
+              value={values.password || ''}
               onChange={handleChange}
             />
           </div>
