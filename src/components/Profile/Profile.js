@@ -1,5 +1,5 @@
 import './Profile.css';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
@@ -9,18 +9,11 @@ function Profile({ className, onLogout, editProfile }) {
   const isLoggedIn = useContext(IsLoggedInContext);
   const currentUser = useContext(CurrentUserContext);
 
-  // const [userData, setUserData] = useState({
-  //   name: currentUser.name,
-  //   email: currentUser.email,
-  // })
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setUserData({
-  //     ...userData,
-  //     [name]: value,
-  //   });
-  // };
+  useEffect(() => {
+    if (values.name === currentUser.name && values.email === currentUser.email) {
+      setIsValid(false);
+    }
+  }, [currentUser.email, currentUser.name, values.name, values.email, setIsValid])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,7 +43,7 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите имя"
               required
               autoComplete="name"
-              value={values.name || ''}
+              value={values.name || currentUser.name}
               onChange={handleChange}
             />
             <span>{errors.name}</span>
@@ -64,15 +57,27 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите e-mail"
               required
               autoComplete="e-mail"
-              value={values.email || ''}
+              value={values.email || currentUser.email}
               onChange={handleChange}
             />
             <span>{errors.email}</span>
           </div>
         </div>
-        <input className="button profile__button profile__button_submit" type="submit" name="profile" value="Редактировать" />
+        <input
+          className={`button profile__button profile__button_submit ${isValid ? '' : 'profile__button_submit_disable'}`}
+          type="submit"
+          name="profile"
+          value="Редактировать"
+          disabled={!isValid}
+        />
       </form>
-      <input className="button profile__button profile__button_exit" type="button" name="exit" value="Выйти из аккаунта" onClick={onLogout} />
+      <input
+        className="button profile__button profile__button_exit"
+        type="button"
+        name="exit"
+        value="Выйти из аккаунта"
+        onClick={onLogout}
+      />
     </div>
   )
 }

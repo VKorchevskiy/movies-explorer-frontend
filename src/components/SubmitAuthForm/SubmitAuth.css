@@ -20,6 +20,14 @@
   height: 45px;
 }
 
+.submit-auth__button_disable {
+  cursor: default;
+  background-color: #A0A0A0;
+}
+.submit-auth__button_disable:hover {
+  opacity: 1;
+}
+
 .submit-auth__question {
   display: flex;
   flex-direction: row;

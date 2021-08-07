@@ -53,6 +53,7 @@ function Login({ className, onLogin }) {
           </div>
           <SubmitAuth
             className='login__submit-auth'
+            isValid={isValid}
             nameSubmit='Войти'
             question='Ещё не зарегистрированы?'
             link='signup'

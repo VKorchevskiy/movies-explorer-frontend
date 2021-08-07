@@ -77,6 +77,15 @@
   align-self: end;
 }
 
+.profile__button_submit_disable {
+  cursor: default;
+  color: #A0A0A0;
+}
+
+.profile__button_submit_disable:hover {
+  opacity: 1;
+}
+
 .profile__button_exit {
   margin-top: 16px;
   align-self: end;

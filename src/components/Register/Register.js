@@ -64,6 +64,7 @@ function Register({ className, onRegister }) {
           </div>
           <SubmitAuth
             className='register__submit-auth'
+            isValid={isValid}
             nameSubmit='Зарегистрироваться'
             question='Уже зарегистрированы?'
             link='signin'
