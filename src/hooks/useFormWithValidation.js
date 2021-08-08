@@ -109,5 +109,5 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm };
+  return { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, isFieldsValid, setIsFieldValid, resetForm };
 }

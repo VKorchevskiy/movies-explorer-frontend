@@ -1,5 +1,5 @@
 import './Register.css';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import InputAuth from '../InputAuth/InputAuth';
@@ -8,19 +8,33 @@ import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register({ className, onRegister }) {
-  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
+  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, isFieldsValid, setIsFieldValid, resetForm } = useFormWithValidation()
   const isLoggedIn = useContext(IsLoggedInContext);
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      name: '',
+      email: '',
+      password: '',
+    });
+    setIsFieldValid({
+      ...isFieldsValid,
+      name: false,
+      email: false,
+      password: false,
+    })
+    setIsValid(false);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValid) {
       return;
     }
-
     setValues({
       ...values,
     });
-
     onRegister(values);
   };
 

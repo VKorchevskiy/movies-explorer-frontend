@@ -15,27 +15,24 @@ function Profile({ className, onLogout, editProfile }) {
       email: currentUser.email,
     })
     setIsValid(false);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
       setIsValid(false);
     }
-  }, [currentUser.email, currentUser.name, setIsValid, values.email, values.name])
+  }, [currentUser.email, currentUser.name, setIsValid, values.email, values.name]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValid) {
       return;
     }
-
     setValues({
       ...values,
     });
-
     editProfile(values);
   };
-
 
   return (
     <div className={`profile ${className || ''}`.trim()}>
