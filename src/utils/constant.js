@@ -47,6 +47,11 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+const SEARCH_ERROR = 'Нужно ввести ключевое слово';
+const NAME_ERROR = 'Нужно ввести имя';
+const EMAIL_ERROR = 'Нужно ввести e-mail';
+const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';
+
 export {
   logo,
   avatar,
@@ -58,4 +63,8 @@ export {
   optionsMoviesApi,
   optionsMainApi,
   headers,
+  SEARCH_ERROR,
+  NAME_ERROR,
+  EMAIL_ERROR,
+  PASSWORD_ERROR
 };

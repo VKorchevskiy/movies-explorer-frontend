@@ -15,16 +15,9 @@
   width: 100%;
 }
 
-.input-auth__text_error {
-  color: #EE3465;
-  opacity: 0;
-  padding-bottom: 0;
-  padding-top: 18px;
-}
-
-.input-auth__text_error_active {
-  opacity: 1;
-  padding-top: 6px;
+.input-auth__error {
+  padding: 6px 0 0;
+  width: 100%;
 }
 
 .input-auth__input {

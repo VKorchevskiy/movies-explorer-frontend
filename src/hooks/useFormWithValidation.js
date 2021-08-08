@@ -1,54 +1,93 @@
-import { useCallback, useState } from "react";
-const validator = require("email-validator");
+import { useCallback, useEffect, useState } from "react";
+import { EMAIL_ERROR, NAME_ERROR, PASSWORD_ERROR, SEARCH_ERROR } from "../utils/constant";
+import { searchValidator, nameValidator, emailValidator, passwordValidator } from '../utils/validators'
 
-//хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
+  const [isFieldsValid, setIsFieldValid] = useState({});
 
-  const checkValidity = () => setIsValid(!Object.values(errors).some((error) => error !== ''));
+  const validateForm = () => {
+    setIsValid(!Object.values(isFieldsValid).some((isFieldValid) => isFieldValid === false));
+  }
+
+  useEffect(() => {
+    validateForm()
+  });
 
   const validateField = (fieldName, value) => {
-    setIsValid(true);
+    setIsValid(false);
+    setIsFieldValid({
+      ...isFieldsValid,
+      [fieldName]: false,
+    })
 
     switch (fieldName) {
       case 'search':
-        if (value === '') {
-          setErrors({ ...errors, search: 'Нужно ввести ключевое слово' });
-          setIsValid(false);
+        if (searchValidator(value)) {
+          setErrors({ ...errors, [fieldName]: '' });
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: true,
+          })
         } else {
-          setErrors({ ...errors, search: '' });
+          setErrors({ ...errors, [fieldName]: SEARCH_ERROR });
+          setIsValid(false);
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: false,
+          })
         }
         break;
-
       case 'name':
-        if (value.match(/^[а-яёa-z -]{2,30}$/gi)) {
-          setErrors({ ...errors, name: '' });
+        if (nameValidator(value)) {
+          setErrors({ ...errors, [fieldName]: '' });
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: true,
+          })
         } else {
-          setErrors({ ...errors, name: 'Нужно ввести имя' });
+          setErrors({ ...errors, [fieldName]: NAME_ERROR });
           setIsValid(false);
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: false,
+          })
         }
         break;
-
       case 'email':
-        if (validator.validate(value)) {
-          setErrors({ ...errors, email: '' });
+        if (emailValidator(value)) {
+          setErrors({ ...errors, [fieldName]: '' });
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: true,
+          })
         } else {
-          setErrors({ ...errors, email: 'Нужно ввести e-mail' });
+          setErrors({ ...errors, [fieldName]: EMAIL_ERROR });
           setIsValid(false);
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: false,
+          })
         }
         break;
-
       case 'password':
-        if (value.match(/(?=.*[0-9])(?=.*[`~!@'"#№$;:%^*<>?|+/\-()[\]{=},.\\])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z`~!@'"#№$;:%^*<>?|+/\-()[\]{=},.\\]{8,}/g)) {
-          setErrors({ ...errors, password: '' })
+        if (passwordValidator(value)) {
+          setErrors({ ...errors, [fieldName]: '' });
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: true,
+          })
         } else {
-          setErrors({ ...errors, password: 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.' });
+          setErrors({ ...errors, [fieldName]: PASSWORD_ERROR });
           setIsValid(false);
+          setIsFieldValid({
+            ...isFieldsValid,
+            [fieldName]: false,
+          })
         }
         break;
-
       default: break;
     }
   }
@@ -58,9 +97,7 @@ export function useFormWithValidation() {
     const name = target.name;
     const value = target.value;
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
     validateField(name, value);
-    // setIsValid(target.closest("form").checkValidity());
   };
 
   const resetForm = useCallback(

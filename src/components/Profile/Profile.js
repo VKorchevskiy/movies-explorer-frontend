@@ -1,19 +1,27 @@
 import './Profile.css';
 import React, { useContext, useEffect } from 'react';
+import ErrorInput from '../ErrorInput/ErrorInput';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Profile({ className, onLogout, editProfile }) {
-  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormWithValidation()
   const currentUser = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      name: currentUser.name,
+      email: currentUser.email,
+    })
+    setIsValid(false);
+  }, [])
 
   useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
       setIsValid(false);
     }
-  }, [currentUser.email, currentUser.name, values.name, values.email, setIsValid])
+  }, [currentUser.email, currentUser.name, setIsValid, values.email, values.name])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +54,7 @@ function Profile({ className, onLogout, editProfile }) {
               value={values.name || currentUser.name}
               onChange={handleChange}
             />
-            <span>{errors.name}</span>
+            <ErrorInput className='profile__error' error={errors.name} />
           </div>
           <div className="profile__container">
             <p className="profile__description">E-mail</p>
@@ -60,7 +68,7 @@ function Profile({ className, onLogout, editProfile }) {
               value={values.email || currentUser.email}
               onChange={handleChange}
             />
-            <span>{errors.email}</span>
+            <ErrorInput className='profile__error' error={errors.email} />
           </div>
         </div>
         <input

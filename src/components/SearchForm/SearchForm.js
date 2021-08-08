@@ -1,5 +1,6 @@
+import ErrorInput from '../ErrorInput/ErrorInput';
 import './SearchForm.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function SearchForm({ children, className, searchMovies }) {
@@ -33,7 +34,7 @@ function SearchForm({ children, className, searchMovies }) {
         <input className={`button search__submit-button ${isValid ? '' : 'search__submit-button_disable'}`.trim()} type="submit" name="search" value="" disabled={!isValid} />
       </form>
       {children}
-      <span className="search__error-text">{errors.search}</span>
+      <ErrorInput className='search__error' error={errors.search} />
     </div>
   )
 }

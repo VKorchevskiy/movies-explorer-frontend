@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import InputAuth from '../InputAuth/InputAuth';
@@ -8,7 +8,7 @@ import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Login({ className, onLogin }) {
-  const { values, setValues, handleChange, errors, setErrors, isValid, setIsValid, resetForm } = useFormWithValidation()
+  const { values, setValues, handleChange, errors, isValid, resetForm } = useFormWithValidation()
   const isLoggedIn = useContext(IsLoggedInContext);
 
   const handleSubmit = (e) => {
