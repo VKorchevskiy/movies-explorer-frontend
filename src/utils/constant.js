@@ -52,6 +52,17 @@ const NAME_ERROR = 'Нужно ввести имя';
 const EMAIL_ERROR = 'Нужно ввести e-mail';
 const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';
 
+const MAX_WIDTH = 1280;
+const MEDIUM_WIDTH = 768;
+const MIN_WIDTH = 320;
+const MAX_QUANTITY_CARDS = 12;
+const MORE_MAX_QUANTITY_CARDS = 4;
+const MEDIUM_QUANTITY_CARDS = 8;
+const MORE_MEDIUM_QUANTITY_CARDS = 2;
+const MIN_QUANTITY_CARDS = 5;
+const MORE_MIN_QUANTITY_CARDS = 1;
+
+
 export {
   logo,
   avatar,
@@ -66,5 +77,14 @@ export {
   SEARCH_ERROR,
   NAME_ERROR,
   EMAIL_ERROR,
-  PASSWORD_ERROR
+  PASSWORD_ERROR,
+  MAX_WIDTH,
+  MEDIUM_WIDTH,
+  MIN_WIDTH,
+  MAX_QUANTITY_CARDS,
+  MORE_MAX_QUANTITY_CARDS,
+  MEDIUM_QUANTITY_CARDS,
+  MORE_MEDIUM_QUANTITY_CARDS,
+  MIN_QUANTITY_CARDS,
+  MORE_MIN_QUANTITY_CARDS,
 };
