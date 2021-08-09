@@ -1,4 +1,4 @@
-[Ссылка на сайт](https://diploma.vkorchevskiy.nomoredomains.monster/profile)
+[Ссылка на сайт](https://diploma.vkorchevskiy.nomoredomains.monster)
 
 # Getting Started with Create React App
 
