@@ -7,7 +7,7 @@ import SubmitAuth from '../SubmitAuthForm/SubmitAuth';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Login({ className, onLogin }) {
+function Login({ className, onLogin, error, setError }) {
   const { values, setValues, handleChange, errors, isValid, setIsValid, isFieldsValid, setIsFieldValid, resetForm } = useFormWithValidation()
   const isLoggedIn = useContext(IsLoggedInContext);
 
@@ -23,6 +23,7 @@ function Login({ className, onLogin }) {
       password: false,
     });
     setIsValid(false);
+    setError('')
   }, []);
 
   const handleSubmit = (e) => {
@@ -35,6 +36,7 @@ function Login({ className, onLogin }) {
     });
     onLogin(values);
     resetForm();
+    setIsValid(false);
   };
 
   return (
@@ -72,6 +74,7 @@ function Login({ className, onLogin }) {
             question='Ещё не зарегистрированы?'
             link='signup'
             linkText='Регистрация'
+            error={error}
           />
         </form>
       </div>

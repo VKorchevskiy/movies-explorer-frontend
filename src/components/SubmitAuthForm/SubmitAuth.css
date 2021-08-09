@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.submit-auth__error {
+  margin-bottom: 14px;
+}
+
+.submit-auth__error_disable {
+  display: none;
+}
+
 .submit-auth__button {
   margin: 0;
   padding: 0;

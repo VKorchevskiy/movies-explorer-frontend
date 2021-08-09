@@ -52,6 +52,10 @@ const NAME_ERROR = 'Нужно ввести имя';
 const EMAIL_ERROR = 'Нужно ввести e-mail';
 const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';
 
+const PROFILE_ERROR = 'При изменении данных пользователя произошла ошибка.';
+const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка.';
+const AUTH_ERROR = 'При авторизации произошла ошибка.';
+
 const MAX_WIDTH = 1280;
 const MEDIUM_WIDTH = 768;
 const MIN_WIDTH = 320;
@@ -78,6 +82,9 @@ export {
   NAME_ERROR,
   EMAIL_ERROR,
   PASSWORD_ERROR,
+  PROFILE_ERROR,
+  REGISTER_ERROR,
+  AUTH_ERROR,
   MAX_WIDTH,
   MEDIUM_WIDTH,
   MIN_WIDTH,

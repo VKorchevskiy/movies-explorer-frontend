@@ -15,7 +15,14 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import { pathsWithFooter, pathsAll } from '../../utils/constant';
+import {
+  pathsWithFooter,
+  pathsAll,
+  PROFILE_ERROR,
+  REGISTER_ERROR,
+  AUTH_ERROR,
+} from '../../utils/constant';
+
 import { filterMovies, filterShortMovies } from '../../utils/halpers';
 import { moviesApi } from '../../utils/MoviesApi.js';
 import { mainApi } from '../../utils/MainApi.js';
@@ -44,6 +51,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [registerError, setRegisterError] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [profileError, setProfileError] = useState('');
+
   //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -62,7 +73,13 @@ function App() {
         });
         setIsLoggedIn(true);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err.name)
+        console.log(err.statusCode)
+        console.log(err.state)
+        console.log(err.message)
+        console.log(err)
+      });
   };
 
   useEffect(() => {
@@ -95,7 +112,10 @@ function App() {
         setIsLoggedIn(true);
         history.push('/movies');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        setLoginError(AUTH_ERROR);
+      });
   };
 
   const onRegister = (data) => {
@@ -104,7 +124,9 @@ function App() {
       .then(() => {
         onLogin({ email: data.email, password: data.password })
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setRegisterError(REGISTER_ERROR);
+      });
   };
 
   const onLogout = () => {
@@ -120,8 +142,12 @@ function App() {
       .putchUser({ name, email }, localStorage.getItem('jwt'))
       .then(res => {
         setCurrentUser(res);
+        setProfileError('')
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        setProfileError(PROFILE_ERROR)
+      });
   };
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
@@ -199,10 +225,10 @@ function App() {
         <SavedMoviesContext.Provider value={savedMovies}>
           <Switch>
             <Route path="/signup" exact>
-              <Register className="app__register" onRegister={onRegister} />
+              <Register className="app__register" onRegister={onRegister} error={registerError} setError={setRegisterError} />
             </Route>
             <Route path="/signin" exact>
-              <Login className="app__login" onLogin={onLogin} />
+              <Login className="app__login" onLogin={onLogin} error={loginError} setError={setLoginError} />
             </Route>
 
             <Route path="/" exact>
@@ -247,6 +273,8 @@ function App() {
                       onLogout={onLogout}
                       isLoggedIn={isLoggedIn}
                       editProfile={editProfile}
+                      error={profileError}
+                      setError={setProfileError}
                       component={Profile}
                     /> : <></>}
 

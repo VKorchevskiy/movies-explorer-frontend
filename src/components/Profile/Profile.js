@@ -4,7 +4,7 @@ import ErrorInput from '../ErrorInput/ErrorInput';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Profile({ className, onLogout, editProfile }) {
+function Profile({ className, onLogout, editProfile, error, setError }) {
   const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormWithValidation()
   const currentUser = useContext(CurrentUserContext);
 
@@ -15,6 +15,7 @@ function Profile({ className, onLogout, editProfile }) {
       email: currentUser.email,
     })
     setIsValid(false);
+    setError('')
   }, []);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите имя"
               required
               autoComplete="name"
-              value={values.name || currentUser.name}
+              value={values.name || ''}
               onChange={handleChange}
             />
             <ErrorInput className='profile__error' error={errors.name} />
@@ -62,19 +63,22 @@ function Profile({ className, onLogout, editProfile }) {
               placeholder="Введите e-mail"
               required
               autoComplete="e-mail"
-              value={values.email || currentUser.email}
+              value={values.email || ''}
               onChange={handleChange}
             />
             <ErrorInput className='profile__error' error={errors.email} />
           </div>
         </div>
-        <input
-          className={`button profile__button profile__button_submit ${isValid ? '' : 'profile__button_submit_disable'}`}
-          type="submit"
-          name="profile"
-          value="Редактировать"
-          disabled={!isValid}
-        />
+        <div className="profile__edit-group">
+          <ErrorInput className='profile__edit-error' error={error} />
+          <input
+            className={`button profile__button profile__button_submit ${isValid ? '' : 'profile__button_submit_disable'}`}
+            type="submit"
+            name="profile"
+            value="Редактировать"
+            disabled={!isValid}
+          />
+        </div>
       </form>
       <input
         className="button profile__button profile__button_exit"
