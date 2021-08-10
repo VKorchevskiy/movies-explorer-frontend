@@ -1,11 +1,11 @@
 import logo from '../images/logo/logo.svg';
 import avatar from '../images/avatar.jpg';
 
-const pathsWithFooter = ['movies', 'saved-movies']
+export const pathsWithFooter = ['movies', 'saved-movies']
 
-const pathsAll = ['movies', 'saved-movies', 'profile']
+export const pathsAll = ['movies', 'saved-movies', 'profile']
 
-const projectCards = [
+export const projectCards = [
   {
     subtitle: 'Дипломный проект включал 5 этапов',
     description: 'Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.',
@@ -16,9 +16,9 @@ const projectCards = [
   }
 ];
 
-const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
+export const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
 
-const portfolioCards = [
+export const portfolioCards = [
   {
     description: 'Статичный сайт',
     link: 'https://vkorchevskiy.github.io/how-to-learn/index.html',
@@ -33,65 +33,43 @@ const portfolioCards = [
   }
 ];
 
-const optionsMoviesApi = {
+export const optionsMoviesApi = {
   baseUrl: 'https://api.nomoreparties.co',
 };
 
-const optionsMainApi = {
+export const optionsMainApi = {
   baseUrl: 'https://api.diploma.vkorchevskiy.nomoredomains.club',
   // baseUrl: 'http://localhost:3000',
 };
 
-const headers = {
+export const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
 }
 
-const SEARCH_ERROR = 'Нужно ввести ключевое слово';
-const NAME_ERROR = 'Нужно ввести имя';
-const EMAIL_ERROR = 'Нужно ввести e-mail';
-const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';
+export const SEARCH_ERROR = 'Нужно ввести ключевое слово';
+export const NAME_ERROR = 'Нужно ввести имя';
+export const EMAIL_ERROR = 'Нужно ввести e-mail';
+export const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';
 
-const PROFILE_ERROR = 'При изменении данных пользователя произошла ошибка.';
-const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка.';
-const AUTH_ERROR = 'При авторизации произошла ошибка.';
+export const PROFILE_ERROR = 'При изменении данных пользователя произошла ошибка.';
+export const SUCCESSFUL_PROFILE_EDITING = 'Данные пользователя успешно изменены'
+export const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка.';
+export const AUTH_ERROR = 'При авторизации произошла ошибка.';
 
-const MAX_WIDTH = 1280;
-const MEDIUM_WIDTH = 768;
-const MIN_WIDTH = 320;
-const MAX_QUANTITY_CARDS = 12;
-const MORE_MAX_QUANTITY_CARDS = 4;
-const MEDIUM_QUANTITY_CARDS = 8;
-const MORE_MEDIUM_QUANTITY_CARDS = 2;
-const MIN_QUANTITY_CARDS = 5;
-const MORE_MIN_QUANTITY_CARDS = 1;
-
+export const MAX_WIDTH = 1280;
+export const MEDIUM_WIDTH = 768;
+export const MIN_WIDTH = 320;
+export const MAX_QUANTITY_CARDS = 12;
+export const MORE_MAX_QUANTITY_CARDS = 4;
+export const MEDIUM_QUANTITY_CARDS = 8;
+export const MORE_MEDIUM_QUANTITY_CARDS = 2;
+export const MIN_QUANTITY_CARDS = 5;
+export const MORE_MIN_QUANTITY_CARDS = 1;
+export const HOUR = 60;
+export const DURATION_SHORT_MOVIE = 40;
 
 export {
   logo,
   avatar,
-  pathsWithFooter,
-  pathsAll,
-  projectCards,
-  techs,
-  portfolioCards,
-  optionsMoviesApi,
-  optionsMainApi,
-  headers,
-  SEARCH_ERROR,
-  NAME_ERROR,
-  EMAIL_ERROR,
-  PASSWORD_ERROR,
-  PROFILE_ERROR,
-  REGISTER_ERROR,
-  AUTH_ERROR,
-  MAX_WIDTH,
-  MEDIUM_WIDTH,
-  MIN_WIDTH,
-  MAX_QUANTITY_CARDS,
-  MORE_MAX_QUANTITY_CARDS,
-  MEDIUM_QUANTITY_CARDS,
-  MORE_MEDIUM_QUANTITY_CARDS,
-  MIN_QUANTITY_CARDS,
-  MORE_MIN_QUANTITY_CARDS,
 };

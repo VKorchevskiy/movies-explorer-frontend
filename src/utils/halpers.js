@@ -1,13 +1,13 @@
-import {optionsMoviesApi} from './constant';
+import { optionsMoviesApi, HOUR, DURATION_SHORT_MOVIE } from './constant';
 
 export const checkResponse = (res) => res.ok
   ? res.json() :
   Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
 
 export const convertDuration = (duration) => {
-  return duration < 60
+  return duration < HOUR
     ? `${duration} минут`
-    : `${Math.floor(duration / 60)}ч ${duration % 60}м`;
+    : `${Math.floor(duration / HOUR)}ч ${duration % HOUR}м`;
 };
 
 export const filterMovies = (movies, dataSearch) => movies.filter((movie) => {
@@ -21,7 +21,7 @@ export const filterMovies = (movies, dataSearch) => movies.filter((movie) => {
   )
 })
 
-export const filterShortMovies = (movies) => movies.filter((movie) => movie.duration < 40 );
+export const filterShortMovies = (movies) => movies.filter((movie) => movie.duration < DURATION_SHORT_MOVIE);
 
 export const convertMovieProps = (props) => {
   const movie = {
