@@ -21,6 +21,7 @@ import {
   PROFILE_ERROR,
   REGISTER_ERROR,
   AUTH_ERROR,
+  SUCCESSFUL_PROFILE_EDITING
 } from '../../utils/constant';
 
 import { filterMovies, filterShortMovies } from '../../utils/halpers';
@@ -54,6 +55,7 @@ function App() {
   const [registerError, setRegisterError] = useState('');
   const [loginError, setLoginError] = useState('');
   const [profileError, setProfileError] = useState('');
+  const [profileSuccess, setProfileSuccess] = useState('');
 
   //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
   const tokenCheck = () => {
@@ -142,11 +144,13 @@ function App() {
       .putchUser({ name, email }, localStorage.getItem('jwt'))
       .then(res => {
         setCurrentUser(res);
-        setProfileError('')
+        setProfileError('');
+        setProfileSuccess(SUCCESSFUL_PROFILE_EDITING);
       })
       .catch(err => {
         console.log(err);
-        setProfileError(PROFILE_ERROR)
+        setProfileError(PROFILE_ERROR);
+        setProfileSuccess('')
       });
   };
 
@@ -275,6 +279,8 @@ function App() {
                       editProfile={editProfile}
                       error={profileError}
                       setError={setProfileError}
+                      success={profileSuccess}
+                      setSuccess={setProfileSuccess}
                       component={Profile}
                     /> : <></>}
 

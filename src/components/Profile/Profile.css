@@ -77,6 +77,11 @@
   margin-bottom: 10px;
 }
 
+.profile__success {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .profile__button {
   border: none;
   background: none;

@@ -1,10 +1,11 @@
+import SuccessMessage from '../SuccessMessage/SuccessMessage';
+import ErrorInput from '../ErrorInput/ErrorInput';
 import './Profile.css';
 import React, { useContext, useEffect } from 'react';
-import ErrorInput from '../ErrorInput/ErrorInput';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Profile({ className, onLogout, editProfile, error, setError }) {
+function Profile({ className, onLogout, editProfile, error, setError, success, setSuccess }) {
   const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormWithValidation()
   const currentUser = useContext(CurrentUserContext);
 
@@ -15,7 +16,8 @@ function Profile({ className, onLogout, editProfile, error, setError }) {
       email: currentUser.email,
     })
     setIsValid(false);
-    setError('')
+    setError('');
+    setSuccess('')
   }, []);
 
   useEffect(() => {
@@ -70,7 +72,8 @@ function Profile({ className, onLogout, editProfile, error, setError }) {
           </div>
         </div>
         <div className="profile__edit-group">
-          <ErrorInput className='profile__edit-error' error={error} />
+          {success ? <SuccessMessage className='profile__success' message={success} /> : <></>}
+          {error ? <ErrorInput className='profile__edit-error' error={error} /> : <></>}
           <input
             className={`button profile__button profile__button_submit ${isValid ? '' : 'profile__button_submit_disable'}`}
             type="submit"
