@@ -235,7 +235,6 @@ function App() {
         ...savedMovies,
         newMovie
       ])
-      // setFilteredMovies((state) => state.map(((m) => m.id !== movie.id)))
     })
     .catch(err => console.log(err));
 

@@ -41,7 +41,7 @@ function Register({ className, onRegister, error, setError }) {
 
   return (
     <>
-    {isLoggedIn && <Redirect to="/movies" />}
+      {isLoggedIn && <Redirect to="/movies" />}
       <div className={`register ${className || ''}`.trim()}>
         <HeaderAuth className="register__header-auth" title="Добро пожаловать!" />
         <form className="register__form" name="register" onSubmit={handleSubmit} >
