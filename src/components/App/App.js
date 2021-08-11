@@ -18,6 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
   pathsWithFooter,
   pathsAll,
+  NOT_FOUND,
   PROFILE_ERROR,
   REGISTER_ERROR,
   AUTH_ERROR,
@@ -56,6 +57,8 @@ function App() {
   const [loginError, setLoginError] = useState('');
   const [profileError, setProfileError] = useState('');
   const [profileSuccess, setProfileSuccess] = useState('');
+  const [notFoundMovies, setNotFoundMovies] = useState('');
+  const [notFoundSavedMovies, setNotFoundSavedMovies] = useState('');
 
   //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
   const tokenCheck = () => {
@@ -76,10 +79,6 @@ function App() {
         setIsLoggedIn(true);
       })
       .catch(err => {
-        console.log(err.name)
-        console.log(err.statusCode)
-        console.log(err.state)
-        console.log(err.message)
         console.log(err)
       });
   };
@@ -132,6 +131,10 @@ function App() {
   };
 
   const onLogout = () => {
+    setIsDisplay(false);
+    setMovies([]);
+    setFilteredMovies([]);
+    setSetupedFilteredMovies([]);
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
     localStorage.removeItem('movies');
@@ -155,17 +158,25 @@ function App() {
   };
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
+  const searchFilterMovie = (dataSearch) => {
+    setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
+    setIsLoading(false);
+  }
+
   const searchMovies = (dataSearch) => {
     setIsLoading(true);
-    return moviesApi.getMovies()
+    const localMovies = JSON.parse(localStorage.getItem('movies'))
+    if (localMovies) {
+      searchFilterMovie(dataSearch);
+      setIsDisplay(true);
+    } else return moviesApi.getMovies()
       .then((movies) => {
         localStorage.setItem('movies', JSON.stringify(movies));
-        setMovies(JSON.parse(localStorage.getItem('movies')));
+        setMovies(movies);
         setIsDisplay(true);
       })
       .then(() => {
-        setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
-        setIsLoading(false);
+        searchFilterMovie(dataSearch);
       })
       .catch(err => console.log(err));
   };
@@ -174,7 +185,8 @@ function App() {
     isShortMovies
       ? setSetupedFilteredMovies(filterShortMovies(filteredMovies))
       : setSetupedFilteredMovies(filteredMovies);
-  }, [filteredMovies, isShortMovies]);
+    (setupedFilteredMovies.length === 0) ? setNotFoundMovies(NOT_FOUND) : setNotFoundMovies('');
+  }, [filteredMovies, isShortMovies, setupedFilteredMovies.length]);
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (SAVED-MOVIES)-----------------------------//
   useEffect(() => {
@@ -190,7 +202,8 @@ function App() {
     isShortSavedMovies
       ? setSetupedFilteredSavedMovies(filterShortMovies(filteredSavedMovies))
       : setSetupedFilteredSavedMovies(filteredSavedMovies);
-  }, [filteredSavedMovies, isShortSavedMovies]);
+    (setupedFilteredSavedMovies.length === 0 && savedMovies.length !== 0) ? setNotFoundSavedMovies(NOT_FOUND) : setNotFoundSavedMovies('');
+  }, [filteredSavedMovies, isShortSavedMovies, setupedFilteredSavedMovies.length, savedMovies.length]);
 
   //-----------------------------СОХРАНЕНИЕ, УДАЛЕНИЕ ФИЛЬМА-----------------------------//
   const saveMovie = (movie) => mainApi.saveMovie(movie, localStorage.getItem('jwt'))
@@ -257,6 +270,8 @@ function App() {
                       isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
                       onMovieButton={handleLikeMovie}
+                      notFoundMovies={notFoundMovies}
+                      setNotFoundMovies={setNotFoundMovies}
                       component={Movies}
                     /> : <></>}
 
@@ -269,6 +284,8 @@ function App() {
                       isLoading={isLoading}
                       isLoggedIn={isLoggedIn}
                       onMovieButton={handleDeleteMovie}
+                      notFoundMovies={notFoundSavedMovies}
+                      setNotFoundMovies={setNotFoundSavedMovies}
                       component={SavedMovies} />
                       : <></>}
 

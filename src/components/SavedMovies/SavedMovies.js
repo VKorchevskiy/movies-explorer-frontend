@@ -1,5 +1,5 @@
 import './SavedMovies.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -13,23 +13,34 @@ const SavedMovies = ({
   setIsShortMovies,
   isLoading,
   isLoggedIn,
-
   onMovieButton,
-}) => (
-  <main className={`saved-movies ${className || ''}`.trim()}>
-    <SearchForm searchMovies={searchMovies}>
-      <FilterCheckbox
-        isShortMovies={isShortMovies}
-        setIsShortMovies={setIsShortMovies}
-      />
-    </SearchForm>
-    <MoviesCardList
-      isSavedPage={true}
-      movies={movies}
-      isDisplay={isDisplay}
-      onMovieButton={onMovieButton}
-    />
-  </main>
-);
+  notFoundMovies,
+  setNotFoundMovies,
+}) => {
+
+  useEffect(() => {
+    setNotFoundMovies('');
+  }, []);
+
+  return (
+    <main className={`saved-movies ${className || ''}`.trim()}>
+      <SearchForm searchMovies={searchMovies}>
+        <FilterCheckbox
+          isShortMovies={isShortMovies}
+          setIsShortMovies={setIsShortMovies}
+        />
+      </SearchForm>
+      {notFoundMovies
+        ? <p className="saved-movies__not-found">{notFoundMovies}</p>
+        : <MoviesCardList
+          isSavedPage={true}
+          movies={movies}
+          isDisplay={isDisplay}
+          onMovieButton={onMovieButton}
+        />
+      }
+    </main>
+  );
+}
 
 export default SavedMovies;

@@ -48,6 +48,7 @@ export const headers = {
 }
 
 export const SEARCH_ERROR = 'Нужно ввести ключевое слово';
+export const NOT_FOUND = "Ничего не найдено";
 export const NAME_ERROR = 'Нужно ввести имя';
 export const EMAIL_ERROR = 'Нужно ввести e-mail';
 export const PASSWORD_ERROR = 'Пароль должен содержать не менее одного числа, одного спецсимвола, одной латинской буквы в нижнем и верхнем регистрах и состоять минимум из восьми символов.';

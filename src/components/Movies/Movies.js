@@ -1,5 +1,5 @@
 import './Movies.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -13,10 +13,14 @@ const Movies = ({
   isShortMovies,
   setIsShortMovies,
   isLoading,
-  isLoggedIn,
-
   onMovieButton,
+  notFoundMovies,
+  setNotFoundMovies,
 }) => {
+
+  useEffect(() => {
+    setNotFoundMovies('');
+  }, []);
 
   return (
     <main className={`movies ${className || ''}`.trim()}>
@@ -28,12 +32,14 @@ const Movies = ({
       {
         isLoading
           ? <Preloader />
-          : <MoviesCardList
-            isSavedPage={false}
-            movies={movies}
-            isDisplay={isDisplay}
-            onMovieButton={onMovieButton}
-          />
+          : notFoundMovies
+            ? <p className="movies__not-found">{notFoundMovies}</p>
+            : <MoviesCardList
+              isSavedPage={false}
+              movies={movies}
+              isDisplay={isDisplay}
+              onMovieButton={onMovieButton}
+            />
       }
     </main>
   )
