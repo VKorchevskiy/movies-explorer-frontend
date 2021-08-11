@@ -92,15 +92,35 @@ function App() {
     if (isLoggedIn) {
       setIsLoading(true);
       const jwt = localStorage.getItem('jwt');
-      Promise.all([mainApi.getCurrentUser(jwt), mainApi.getSavedMovies(jwt)])
-        .then(([currentUser, savedMovies]) => {
-          setCurrentUser(currentUser);
-          setSavedMovies(savedMovies);
-        })
-        .catch(err => console.log(err))
-        .finally(() => {
-          setIsLoading(false);
-        })
+      const localMovies = JSON.parse(localStorage.getItem('movies'));
+
+      if (localMovies) {
+        Promise.all([mainApi.getCurrentUser(jwt), mainApi.getSavedMovies(jwt)])
+          .then(([currentUser, savedMovies]) => {
+            setCurrentUser(currentUser);
+            setSavedMovies(savedMovies);
+          })
+          .catch(err => console.log(err))
+          .finally(() => {
+            setIsLoading(false);
+          })
+      } else {
+        Promise.all([
+          mainApi.getCurrentUser(jwt),
+          mainApi.getSavedMovies(jwt),
+          moviesApi.getMovies()
+        ])
+          .then(([currentUser, savedMovies, movies]) => {
+            setCurrentUser(currentUser);
+            setSavedMovies(savedMovies);
+            localStorage.setItem('movies', JSON.stringify(movies));
+            setMovies(movies);
+          })
+          .catch(err => console.log(err))
+          .finally(() => {
+            setIsLoading(false);
+          })
+      }
     }
   }, [isLoggedIn]);
 
@@ -160,7 +180,9 @@ function App() {
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
   const searchFilterMovie = (dataSearch) => {
-    setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
+    // setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
+    setFilteredMovies(filterMovies(movies, dataSearch));
+    console.log(movies)
     setIsLoading(false);
   }
 
@@ -189,7 +211,7 @@ function App() {
     (setupedFilteredMovies.length === 0) ? setNotFoundMovies(NOT_FOUND) : setNotFoundMovies('');
   }, [filteredMovies, isShortMovies, setupedFilteredMovies.length]);
 
-  //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (SAVED-MOVIES)-----------------------------//
+  //-----Ничего не найдено------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (SAVED-MOVIES)-----------------------------//
   useEffect(() => {
     setSetupedFilteredSavedMovies(savedMovies);
     setFilteredSavedMovies(savedMovies)
@@ -243,86 +265,90 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedInContext.Provider value={isLoggedIn}>
         <SavedMoviesContext.Provider value={savedMovies}>
-          <Switch>
-            <Route path="/signup" exact>
-              <Register className="app__register" onRegister={onRegister} error={registerError} setError={setRegisterError} />
-            </Route>
-            <Route path="/signin" exact>
-              <Login className="app__login" onLogin={onLogin} error={loginError} setError={setLoginError} />
-            </Route>
+          {
+            isLoading
+              ? <Preloader />
+              : <Switch>
+                <Route path="/signup" exact>
+                  <Register className="app__register" onRegister={onRegister} error={registerError} setError={setRegisterError} />
+                </Route>
+                <Route path="/signin" exact>
+                  <Login className="app__login" onLogin={onLogin} error={loginError} setError={setLoginError} />
+                </Route>
 
-            <Route path="/" exact>
-              <Landing />
-            </Route>
+                <Route path="/" exact>
+                  <Landing />
+                </Route>
 
-            <Route
-              exact={true}
-              path="/:path"
-              render={({ match }) => {
-                const url = match.url;
-                return (
-                  <>
-                    {pathsAll.includes(url) ? <Header /> : <></>}
+                <Route
+                  exact={true}
+                  path="/:path"
+                  render={({ match }) => {
+                    const url = match.url;
+                    return (
+                      <>
+                        {pathsAll.includes(url) ? <Header /> : <></>}
 
-                    {url === '/movies' ? <ProtectedRoute
-                      path="/movies"
-                      movies={setupedFilteredMovies}
-                      isDisplay={isDisplay}
-                      searchMovies={searchMovies}
-                      isShortMovies={isShortMovies}
-                      setIsShortMovies={setIsShortMovies}
-                      isLoading={isLoading}
-                      isLoggedIn={isLoggedIn}
-                      onMovieButton={handleLikeMovie}
-                      notFoundMovies={notFoundMovies}
-                      setNotFoundMovies={setNotFoundMovies}
-                      component={Movies}
-                    /> : <></>}
+                        {url === '/movies' ? <ProtectedRoute
+                          path="/movies"
+                          movies={setupedFilteredMovies}
+                          isDisplay={isDisplay}
+                          searchMovies={searchMovies}
+                          isShortMovies={isShortMovies}
+                          setIsShortMovies={setIsShortMovies}
+                          isLoading={isLoading}
+                          isLoggedIn={isLoggedIn}
+                          onMovieButton={handleLikeMovie}
+                          notFoundMovies={notFoundMovies}
+                          setNotFoundMovies={setNotFoundMovies}
+                          component={Movies}
+                        /> : <></>}
 
-                    {url === '/saved-movies' ? <ProtectedRoute
-                      path="/saved-movies"
-                      movies={setupedFilteredSavedMovies}
-                      isDisplay={true}
-                      searchMovies={searchSavedMovies}
-                      isShortMovies={isShortSavedMovies}
-                      setIsShortMovies={setIsShortSavedMovies}
-                      isLoading={isLoading}
-                      isLoggedIn={isLoggedIn}
-                      onMovieButton={handleDeleteMovie}
-                      notFoundMovies={notFoundSavedMovies}
-                      setNotFoundMovies={setNotFoundSavedMovies}
-                      component={SavedMovies}
-                    /> : <></>}
+                        {url === '/saved-movies' ? <ProtectedRoute
+                          path="/saved-movies"
+                          movies={setupedFilteredSavedMovies}
+                          isDisplay={true}
+                          searchMovies={searchSavedMovies}
+                          isShortMovies={isShortSavedMovies}
+                          setIsShortMovies={setIsShortSavedMovies}
+                          isLoading={isLoading}
+                          isLoggedIn={isLoggedIn}
+                          onMovieButton={handleDeleteMovie}
+                          notFoundMovies={notFoundSavedMovies}
+                          setNotFoundMovies={setNotFoundSavedMovies}
+                          component={SavedMovies}
+                        /> : <></>}
 
-                    {url === '/profile' ? <ProtectedRoute
-                      className="app__profile"
-                      path="/profile"
-                      onLogout={onLogout}
-                      isLoggedIn={isLoggedIn}
-                      editProfile={editProfile}
-                      error={profileError}
-                      setError={setProfileError}
-                      success={profileSuccess}
-                      setSuccess={setProfileSuccess}
-                      component={Profile}
-                    /> : <></>}
+                        {url === '/profile' ? <ProtectedRoute
+                          className="app__profile"
+                          path="/profile"
+                          onLogout={onLogout}
+                          isLoggedIn={isLoggedIn}
+                          editProfile={editProfile}
+                          error={profileError}
+                          setError={setProfileError}
+                          success={profileSuccess}
+                          setSuccess={setProfileSuccess}
+                          component={Profile}
+                        /> : <></>}
 
-                    {pathsWithFooter.includes(url) ? <ProtectedRoute
-                      isLoggedIn={isLoggedIn}
-                      component={Footer}
-                    /> : <></>}
+                        {pathsWithFooter.includes(url) ? <ProtectedRoute
+                          isLoggedIn={isLoggedIn}
+                          component={Footer}
+                        /> : <></>}
 
-                    {!pathsAll.includes(url) ? <PageNotFound goBack={handleGoBack} /> : <></>}
-                  </>
-                );
-              }}
-            />
+                        {!pathsAll.includes(url) ? <PageNotFound goBack={handleGoBack} /> : <></>}
+                      </>
+                    );
+                  }}
+                />
 
-            <Route path="*">
-              <PageNotFound goBack={handleGoBack} />
-            </Route>
+                <Route path="*">
+                  <PageNotFound goBack={handleGoBack} />
+                </Route>
 
-          </Switch>
+              </Switch>
+          }
         </SavedMoviesContext.Provider>
       </IsLoggedInContext.Provider>
     </CurrentUserContext.Provider>
