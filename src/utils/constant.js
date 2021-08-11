@@ -38,8 +38,8 @@ export const optionsMoviesApi = {
 };
 
 export const optionsMainApi = {
-  // baseUrl: 'https://api.diploma.vkorchevskiy.nomoredomains.club',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.diploma.vkorchevskiy.nomoredomains.club',
+  // baseUrl: 'http://localhost:3000',
 };
 
 export const headers = {
