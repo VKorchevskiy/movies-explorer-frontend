@@ -138,7 +138,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
     localStorage.removeItem('movies');
-    history.push('/signin');
+    history.push('/');
   };
 
   //-------------------------------РЕДАКТИРОВАНИЕ ПРОФИЛЯ-------------------------------//
