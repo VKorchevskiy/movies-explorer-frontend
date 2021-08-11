@@ -4,8 +4,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 const Movies = ({
   className,
@@ -25,8 +23,6 @@ const Movies = ({
   }, []);
 
   return (
-    <>
-      <Header />
       <main className={`movies ${className || ''}`.trim()}>
         <SearchForm searchMovies={searchMovies} >
           <FilterCheckbox
@@ -46,8 +42,6 @@ const Movies = ({
               />
         }
       </main>
-      <Footer />
-    </>
   )
 };
 

@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 const SavedMovies = ({
   className,
@@ -25,8 +23,6 @@ const SavedMovies = ({
   }, []);
 
   return (
-    <>
-      <Header />
       <main className={`saved-movies ${className || ''}`.trim()}>
         <SearchForm searchMovies={searchMovies}>
           <FilterCheckbox
@@ -44,8 +40,6 @@ const SavedMovies = ({
           />
         }
       </main>
-      <Footer />
-    </>
   );
 }
 

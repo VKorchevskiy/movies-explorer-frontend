@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 
 import Header from '../Header/Header';
@@ -33,6 +33,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
 
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const history = useHistory();
@@ -59,44 +60,47 @@ function App() {
   const [profileSuccess, setProfileSuccess] = useState('');
   const [notFoundMovies, setNotFoundMovies] = useState('');
   const [notFoundSavedMovies, setNotFoundSavedMovies] = useState('');
+  const [isCheckedToken, setIsCheckedToken] = useState(false);
 
   //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
-  const tokenCheck = () => {
-    // debugger
+  const tokenCheck = useCallback(() => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
+      setIsCheckedToken(true);
       return;
     }
 
     mainApi
       .getCurrentUser(jwt)
       .then((data) => {
-        setCurrentUser({
-          ...currentUser,
-          _id: data._id,
-          email: data.email,
-          name: data.name,
-        });
         setIsLoggedIn(true);
+        setIsCheckedToken(true);
       })
       .catch(err => {
         console.log(err)
-      });
-  };
+      })
+      .finally(() => {
+        setIsCheckedToken(true);
+      })
+  }, [history]);
 
   useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [tokenCheck]);
 
   useEffect(() => {
     if (isLoggedIn) {
+      setIsLoading(true);
       const jwt = localStorage.getItem('jwt');
       Promise.all([mainApi.getCurrentUser(jwt), mainApi.getSavedMovies(jwt)])
         .then(([currentUser, savedMovies]) => {
           setCurrentUser(currentUser);
           setSavedMovies(savedMovies);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+        .finally(() => {
+          setIsLoading(false);
+        })
     }
   }, [isLoggedIn]);
 
@@ -232,6 +236,9 @@ function App() {
     }
   }
 
+  if (!isCheckedToken) {
+    return <></>;
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedInContext.Provider value={isLoggedIn}>
@@ -248,75 +255,57 @@ function App() {
               <Landing />
             </Route>
 
-            <ProtectedRoute
-              path="/movies"
-              movies={setupedFilteredMovies}
-              isDisplay={isDisplay}
-              searchMovies={searchMovies}
-              isShortMovies={isShortMovies}
-              setIsShortMovies={setIsShortMovies}
-              isLoading={isLoading}
-              isLoggedIn={isLoggedIn}
-              onMovieButton={handleLikeMovie}
-              notFoundMovies={notFoundMovies}
-              setNotFoundMovies={setNotFoundMovies}
-              component={Movies}
-            />
-
-            <ProtectedRoute
-              path="/saved-movies"
-              movies={setupedFilteredSavedMovies}
-              isDisplay={true}
-              searchMovies={searchSavedMovies}
-              isShortMovies={isShortSavedMovies}
-              setIsShortMovies={setIsShortSavedMovies}
-              isLoading={isLoading}
-              isLoggedIn={isLoggedIn}
-              onMovieButton={handleDeleteMovie}
-              notFoundMovies={notFoundSavedMovies}
-              setNotFoundMovies={setNotFoundSavedMovies}
-              component={SavedMovies}
-            />
-
-            <ProtectedRoute
-              className="app__profile"
-              path="/profile"
-              onLogout={onLogout}
-              isLoggedIn={isLoggedIn}
-              editProfile={editProfile}
-              error={profileError}
-              setError={setProfileError}
-              success={profileSuccess}
-              setSuccess={setProfileSuccess}
-              component={Profile}
-            />
-
-            <Route path="*">
-              <PageNotFound goBack={handleGoBack} />
-            </Route>
-
-            <Route>
-              {isLoggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
-            </Route>
-
-
-            {/*
             <Route
               exact={true}
               path="/:path"
               render={({ match }) => {
-                debugger
                 const url = match.url;
-                console.log(url)
                 return (
                   <>
                     {pathsAll.includes(url) ? <Header /> : <></>}
 
-                    {url === '/movies' ?  : <></>}
+                    {url === '/movies' ? <ProtectedRoute
+                      path="/movies"
+                      movies={setupedFilteredMovies}
+                      isDisplay={isDisplay}
+                      searchMovies={searchMovies}
+                      isShortMovies={isShortMovies}
+                      setIsShortMovies={setIsShortMovies}
+                      isLoading={isLoading}
+                      isLoggedIn={isLoggedIn}
+                      onMovieButton={handleLikeMovie}
+                      notFoundMovies={notFoundMovies}
+                      setNotFoundMovies={setNotFoundMovies}
+                      component={Movies}
+                    /> : <></>}
 
-                    {url === '/saved-movies' ? : <></>}
+                    {url === '/saved-movies' ? <ProtectedRoute
+                      path="/saved-movies"
+                      movies={setupedFilteredSavedMovies}
+                      isDisplay={true}
+                      searchMovies={searchSavedMovies}
+                      isShortMovies={isShortSavedMovies}
+                      setIsShortMovies={setIsShortSavedMovies}
+                      isLoading={isLoading}
+                      isLoggedIn={isLoggedIn}
+                      onMovieButton={handleDeleteMovie}
+                      notFoundMovies={notFoundSavedMovies}
+                      setNotFoundMovies={setNotFoundSavedMovies}
+                      component={SavedMovies}
+                    /> : <></>}
 
-                    {url === '/profile' ?  : <></>}
+                    {url === '/profile' ? <ProtectedRoute
+                      className="app__profile"
+                      path="/profile"
+                      onLogout={onLogout}
+                      isLoggedIn={isLoggedIn}
+                      editProfile={editProfile}
+                      error={profileError}
+                      setError={setProfileError}
+                      success={profileSuccess}
+                      setSuccess={setProfileSuccess}
+                      component={Profile}
+                    /> : <></>}
 
                     {pathsWithFooter.includes(url) ? <ProtectedRoute
                       isLoggedIn={isLoggedIn}
@@ -328,8 +317,10 @@ function App() {
                 );
               }}
             />
-            */}
 
+            <Route path="*">
+              <PageNotFound goBack={handleGoBack} />
+            </Route>
 
           </Switch>
         </SavedMoviesContext.Provider>

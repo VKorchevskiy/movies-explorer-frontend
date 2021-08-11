@@ -4,7 +4,6 @@ import './Profile.css';
 import React, { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
-import Header from '../Header/Header';
 
 function Profile({ className, onLogout, editProfile, error, setError, success, setSuccess }) {
   const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormWithValidation()
@@ -39,9 +38,7 @@ function Profile({ className, onLogout, editProfile, error, setError, success, s
   };
 
   return (
-    <>
-      <Header />
-      <main className={`profile ${className || ''}`.trim()}>
+      <div className={`profile ${className || ''}`.trim()}>
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__form" name="profile" onSubmit={handleSubmit}>
           <div className="profile__container-form">
@@ -93,8 +90,7 @@ function Profile({ className, onLogout, editProfile, error, setError, success, s
           value="Выйти из аккаунта"
           onClick={onLogout}
         />
-      </main>
-    </>
+      </div>
   )
 }
 
