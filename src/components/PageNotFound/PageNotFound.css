@@ -32,14 +32,15 @@
   text-align: center;
 }
 
-.page-not-found__link {
+.page-not-found__button {
   margin: calc(((100vh - 97px - 10px - 15px)/2) - 30px - 15px) 0 0 0;
   padding: 0;
   font-size: 12px;
   line-height: 15px;
   font-weight: 400;
   color: #4285F4;
-  text-decoration: none;
+  border: none;
+  background: rgba(0, 0, 0, 0);
 }
 
 @media screen and (min-width: 768px) {

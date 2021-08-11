@@ -1,9 +1,9 @@
 import logo from '../images/logo/logo.svg';
 import avatar from '../images/avatar.jpg';
 
-export const pathsWithFooter = ['movies', 'saved-movies']
+export const pathsWithFooter = ['/movies', '/saved-movies']
 
-export const pathsAll = ['movies', 'saved-movies', 'profile']
+export const pathsAll = ['/movies', '/saved-movies', '/profile']
 
 export const projectCards = [
   {
@@ -38,8 +38,8 @@ export const optionsMoviesApi = {
 };
 
 export const optionsMainApi = {
-  baseUrl: 'https://api.diploma.vkorchevskiy.nomoredomains.club',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'https://api.diploma.vkorchevskiy.nomoredomains.club',
+  baseUrl: 'http://localhost:3000',
 };
 
 export const headers = {
