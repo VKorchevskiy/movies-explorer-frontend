@@ -56,7 +56,7 @@
     font-size: 16px;
     line-height: 19px;
   }
-  .page-not-found__link {
+  .page-not-found__button {
     margin-top: calc(100vh * 184 / 1024);
     font-size: 14px;
     line-height: 17px;
@@ -67,7 +67,7 @@
   .page-not-found__content {
     margin-top: calc(100vh * 246 / 700);
   }
-  .page-not-found__link {
+  .page-not-found__button {
     margin-top: calc(100vh * 184 / 700);
   }
 }
