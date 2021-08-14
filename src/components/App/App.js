@@ -75,6 +75,10 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         setIsCheckedToken(true);
+        const localMovies = JSON.parse(localStorage.getItem('movies'));
+        if (localMovies) {
+          setMovies(localMovies);
+        }
       })
       .catch(err => {
         console.log(err)
