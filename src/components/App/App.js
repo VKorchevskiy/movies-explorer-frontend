@@ -19,13 +19,13 @@ import {
   pathsWithFooter,
   pathsAll,
   NOT_FOUND,
-  PROFILE_ERROR,
-  REGISTER_ERROR,
-  AUTH_ERROR,
-  SUCCESSFUL_PROFILE_EDITING
+  SUCCESSFUL_PROFILE_EDITING,
+  PROFILE_ERROR_MESSAGES,
+  LOGIN_ERROR_MESSAGES,
+  REGISTER_ERROR_MESSAGES,
 } from '../../utils/constant';
 
-import { filterMovies, filterShortMovies } from '../../utils/halpers';
+import { filterMovies, filterShortMovies, getErrorMessage } from '../../utils/halpers';
 import { moviesApi } from '../../utils/MoviesApi.js';
 import { mainApi } from '../../utils/MainApi.js';
 
@@ -140,8 +140,7 @@ function App() {
       })
       .catch(err => {
         console.log(err);
-        console.log(err.status);
-        setLoginError(AUTH_ERROR);
+        setLoginError(getErrorMessage(err, LOGIN_ERROR_MESSAGES));
       })
       .finally(() => setIsButtonDisabled(false));
   };
@@ -154,7 +153,8 @@ function App() {
         onLogin({ email: data.email, password: data.password })
       })
       .catch(err => {
-        setRegisterError(REGISTER_ERROR);
+        console.log(err);
+        setRegisterError(getErrorMessage(err, REGISTER_ERROR_MESSAGES));
       })
       .finally(() => setIsButtonDisabled(false));
   };
@@ -184,8 +184,8 @@ function App() {
       })
       .catch(err => {
         console.log(err);
-        setProfileError(PROFILE_ERROR);
-        setProfileSuccess('')
+        setProfileError(getErrorMessage(err, PROFILE_ERROR_MESSAGES));
+        setProfileSuccess('');
       })
       .finally(() => setIsButtonDisabled(false));
   };

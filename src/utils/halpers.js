@@ -1,8 +1,35 @@
 import { optionsMoviesApi, HOUR, DURATION_SHORT_MOVIE } from './constant';
 
-export const checkResponse = (res) => res.ok
-  ? res.json() :
-  Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
+export const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    const error = new Error(`Ошибка ${res.status}: ${res.statusText}`);
+    error.status = res.status;
+    error.userMessage = res.message;
+    return Promise.reject(error);
+  }
+};
+
+export const getErrorMessage = (err, {
+  invalidDataMessage,
+  authErrorMessage,
+  forbiddenMessage,
+  notFoundMessage,
+  conflictMessage,
+  manyRequestsMessage,
+  defaultMessage
+}) => {
+  switch (err.status) {
+    case 400: return invalidDataMessage || defaultMessage;
+    case 401: return authErrorMessage || defaultMessage;
+    case 403: return forbiddenMessage || defaultMessage;
+    case 404: return notFoundMessage || defaultMessage;
+    case 409: return conflictMessage || defaultMessage;
+    case 429: return manyRequestsMessage || defaultMessage;
+    default: return defaultMessage;
+  }
+};
 
 export const convertDuration = (duration) => {
   return duration < HOUR
