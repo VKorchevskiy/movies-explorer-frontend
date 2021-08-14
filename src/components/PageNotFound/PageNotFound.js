@@ -1,8 +1,7 @@
 import './PageNotFound.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-function PageNotFound({ className }) {
+function PageNotFound({ className, goBack }) {
   return (
     <div className={`page-not-found ${className || ''}`.trim()}>
       <div className="page-not-found__content">
@@ -10,8 +9,7 @@ function PageNotFound({ className }) {
         <p className="page-not-found__text">Страница не найдена</p>
       </div>
 
-
-      <Link to="signin" className="link page-not-found__link">Назад</Link>
+      <input className="button page-not-found__button" type="button" onClick={goBack} value="Назад"></input>
     </div>
   )
 }

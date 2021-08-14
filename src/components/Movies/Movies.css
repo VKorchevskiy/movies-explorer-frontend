@@ -1,0 +1,19 @@
+.movies {}
+
+.movies__not-found {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  color: #8B8B8B;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .movies__not-found {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}

@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.submit-auth__error {
+  margin-bottom: 14px;
+}
+
+.submit-auth__error_disable {
+  display: none;
+}
+
 .submit-auth__button {
   margin: 0;
   padding: 0;
@@ -18,6 +26,15 @@
   line-height: 15px;
   color: #FFFFFF;
   height: 45px;
+}
+
+.submit-auth__button:disabled {
+  cursor: default;
+  background-color: #A0A0A0;
+}
+
+.submit-auth__button:disabled:hover {
+  opacity: 1;
 }
 
 .submit-auth__question {
@@ -44,15 +61,12 @@
     font-size: 14px;
     line-height: 17px;
   }
-
   .submit-auth__question {
     font-size: 14px;
     line-height: 17px;
     margin-top: 16px;
   }
-
   .submit-auth__link {
     margin-left: 6px;
   }
 }
-
