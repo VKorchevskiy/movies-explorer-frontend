@@ -100,9 +100,13 @@
   align-self: center;
 }
 
-.profile__button_submit_disable {
+.profile__button_submit:disabled {
   cursor: default;
   color: #A0A0A0;
+}
+
+.profile__button_submit:disabled:hover {
+  opacity: 1;
 }
 
 .profile__button_submit_disable:hover {
@@ -113,6 +117,15 @@
   margin-top: 16px;
   align-self: end;
   color: #EE3465;
+}
+
+.profile__button_exit:disabled {
+  cursor: default;
+  color: #A0A0A0;
+}
+
+.profile__button_exit:disabled:hover {
+  opacity: 1;
 }
 
 @media screen and (min-width: 768px) {

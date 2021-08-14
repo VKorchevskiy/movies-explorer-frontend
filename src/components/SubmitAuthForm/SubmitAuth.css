@@ -28,11 +28,12 @@
   height: 45px;
 }
 
-.submit-auth__button_disable {
+.submit-auth__button:disabled {
   cursor: default;
   background-color: #A0A0A0;
 }
-.submit-auth__button_disable:hover {
+
+.submit-auth__button:disabled:hover {
   opacity: 1;
 }
 
@@ -60,15 +61,12 @@
     font-size: 14px;
     line-height: 17px;
   }
-
   .submit-auth__question {
     font-size: 14px;
     line-height: 17px;
     margin-top: 16px;
   }
-
   .submit-auth__link {
     margin-left: 6px;
   }
 }
-

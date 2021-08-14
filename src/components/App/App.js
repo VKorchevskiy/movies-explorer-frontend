@@ -1,7 +1,7 @@
 import './App.css';
 
-import { useCallback, useEffect, useReducer, useState } from 'react';
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
@@ -31,7 +31,7 @@ import { mainApi } from '../../utils/MainApi.js';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { IsLoggedInContext } from '../../contexts/IsLoggedInContext';
-
+import { IsButtonDisabledContext } from '../../contexts/IsButtonDisabledContext';
 import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 import Preloader from '../Preloader/Preloader';
 
@@ -61,6 +61,7 @@ function App() {
   const [notFoundMovies, setNotFoundMovies] = useState('');
   const [notFoundSavedMovies, setNotFoundSavedMovies] = useState('');
   const [isCheckedToken, setIsCheckedToken] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   //--------------------------АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ И ВЫХОД ИЗ СИСТЕМЫ--------------------------//
   const tokenCheck = useCallback(() => {
@@ -129,6 +130,7 @@ function App() {
   }, [isLoggedIn]);
 
   const onLogin = (data) => {
+    setIsButtonDisabled(true);
     return mainApi
       .authorize(data)
       .then(({ token }) => {
@@ -138,11 +140,14 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+        console.log(err.status);
         setLoginError(AUTH_ERROR);
-      });
+      })
+      .finally(() => setIsButtonDisabled(false));
   };
 
   const onRegister = (data) => {
+    setIsButtonDisabled(true);
     return mainApi
       .register(data)
       .then(() => {
@@ -150,7 +155,8 @@ function App() {
       })
       .catch(err => {
         setRegisterError(REGISTER_ERROR);
-      });
+      })
+      .finally(() => setIsButtonDisabled(false));
   };
 
   const onLogout = () => {
@@ -168,6 +174,7 @@ function App() {
 
   //-------------------------------РЕДАКТИРОВАНИЕ ПРОФИЛЯ-------------------------------//
   const editProfile = ({ name, email }) => {
+    setIsButtonDisabled(true);
     return mainApi
       .putchUser({ name, email }, localStorage.getItem('jwt'))
       .then(res => {
@@ -179,14 +186,14 @@ function App() {
         console.log(err);
         setProfileError(PROFILE_ERROR);
         setProfileSuccess('')
-      });
+      })
+      .finally(() => setIsButtonDisabled(false));
   };
 
   //-----------------------------ПОИСК ФИЛЬМОВ, ФИЛЬТРАЦИЯ (MOVIES)-----------------------------//
   const searchFilterMovie = (dataSearch) => {
     // setFilteredMovies(filterMovies(JSON.parse(localStorage.getItem('movies')), dataSearch));
     setFilteredMovies(filterMovies(movies, dataSearch));
-    console.log(movies)
     setIsLoading(false);
   }
 
@@ -268,90 +275,94 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedInContext.Provider value={isLoggedIn}>
         <SavedMoviesContext.Provider value={savedMovies}>
-          {
-            isLoading
-              ? <Preloader />
-              : <Switch>
-                <Route path="/signup" exact>
-                  <Register className="app__register" onRegister={onRegister} error={registerError} setError={setRegisterError} />
-                </Route>
-                <Route path="/signin" exact>
-                  <Login className="app__login" onLogin={onLogin} error={loginError} setError={setLoginError} />
-                </Route>
+          <IsButtonDisabledContext.Provider value={isButtonDisabled}>
+            {
+              isLoading
+                ? <Preloader />
+                : <Switch>
+                  <Route path="/signup" exact>
+                    <Register className="app__register" onRegister={onRegister} error={registerError} setError={setRegisterError} isButtonDisabled={isButtonDisabled} setIsButtonDisabled={setIsButtonDisabled} />
+                  </Route>
+                  <Route path="/signin" exact>
+                    <Login className="app__login" onLogin={onLogin} error={loginError} setError={setLoginError} isButtonDisabled={isButtonDisabled} setIsButtonDisabled={setIsButtonDisabled} />
+                  </Route>
 
-                <Route path="/" exact>
-                  <Landing />
-                </Route>
+                  <Route path="/" exact>
+                    <Landing />
+                  </Route>
 
-                <Route
-                  exact={true}
-                  path="/:path"
-                  render={({ match }) => {
-                    const url = match.url;
-                    return (
-                      <>
-                        {pathsAll.includes(url) ? <Header /> : <></>}
+                  <Route
+                    exact={true}
+                    path="/:path"
+                    render={({ match }) => {
+                      const url = match.url;
+                      return (
+                        <>
+                          {pathsAll.includes(url) ? <Header /> : <></>}
 
-                        {url === '/movies' ? <ProtectedRoute
-                          path="/movies"
-                          movies={setupedFilteredMovies}
-                          isDisplay={isDisplay}
-                          searchMovies={searchMovies}
-                          isShortMovies={isShortMovies}
-                          setIsShortMovies={setIsShortMovies}
-                          isLoading={isLoading}
-                          isLoggedIn={isLoggedIn}
-                          onMovieButton={handleLikeMovie}
-                          notFoundMovies={notFoundMovies}
-                          setNotFoundMovies={setNotFoundMovies}
-                          component={Movies}
-                        /> : <></>}
+                          {url === '/movies' ? <ProtectedRoute
+                            path="/movies"
+                            movies={setupedFilteredMovies}
+                            isDisplay={isDisplay}
+                            searchMovies={searchMovies}
+                            isShortMovies={isShortMovies}
+                            setIsShortMovies={setIsShortMovies}
+                            isLoading={isLoading}
+                            isLoggedIn={isLoggedIn}
+                            onMovieButton={handleLikeMovie}
+                            notFoundMovies={notFoundMovies}
+                            setNotFoundMovies={setNotFoundMovies}
+                            component={Movies}
+                          /> : <></>}
 
-                        {url === '/saved-movies' ? <ProtectedRoute
-                          path="/saved-movies"
-                          movies={setupedFilteredSavedMovies}
-                          isDisplay={true}
-                          searchMovies={searchSavedMovies}
-                          isShortMovies={isShortSavedMovies}
-                          setIsShortMovies={setIsShortSavedMovies}
-                          isLoading={isLoading}
-                          isLoggedIn={isLoggedIn}
-                          onMovieButton={handleDeleteMovie}
-                          notFoundMovies={notFoundSavedMovies}
-                          setNotFoundMovies={setNotFoundSavedMovies}
-                          component={SavedMovies}
-                        /> : <></>}
+                          {url === '/saved-movies' ? <ProtectedRoute
+                            path="/saved-movies"
+                            movies={setupedFilteredSavedMovies}
+                            isDisplay={true}
+                            searchMovies={searchSavedMovies}
+                            isShortMovies={isShortSavedMovies}
+                            setIsShortMovies={setIsShortSavedMovies}
+                            isLoading={isLoading}
+                            isLoggedIn={isLoggedIn}
+                            onMovieButton={handleDeleteMovie}
+                            notFoundMovies={notFoundSavedMovies}
+                            setNotFoundMovies={setNotFoundSavedMovies}
+                            component={SavedMovies}
+                          /> : <></>}
 
-                        {url === '/profile' ? <ProtectedRoute
-                          className="app__profile"
-                          path="/profile"
-                          onLogout={onLogout}
-                          isLoggedIn={isLoggedIn}
-                          editProfile={editProfile}
-                          error={profileError}
-                          setError={setProfileError}
-                          success={profileSuccess}
-                          setSuccess={setProfileSuccess}
-                          component={Profile}
-                        /> : <></>}
+                          {url === '/profile' ? <ProtectedRoute
+                            className="app__profile"
+                            path="/profile"
+                            onLogout={onLogout}
+                            isLoggedIn={isLoggedIn}
+                            editProfile={editProfile}
+                            error={profileError}
+                            setError={setProfileError}
+                            success={profileSuccess}
+                            setSuccess={setProfileSuccess}
+                            isButtonDisabled={isButtonDisabled}
+                            setIsButtonDisabled={setIsButtonDisabled}
+                            component={Profile}
+                          /> : <></>}
 
-                        {pathsWithFooter.includes(url) ? <ProtectedRoute
-                          isLoggedIn={isLoggedIn}
-                          component={Footer}
-                        /> : <></>}
+                          {pathsWithFooter.includes(url) ? <ProtectedRoute
+                            isLoggedIn={isLoggedIn}
+                            component={Footer}
+                          /> : <></>}
 
-                        {!pathsAll.includes(url) ? <PageNotFound goBack={handleGoBack} /> : <></>}
-                      </>
-                    );
-                  }}
-                />
+                          {!pathsAll.includes(url) ? <PageNotFound goBack={handleGoBack} /> : <></>}
+                        </>
+                      );
+                    }}
+                  />
 
-                <Route path="*">
-                  <PageNotFound goBack={handleGoBack} />
-                </Route>
+                  <Route path="*">
+                    <PageNotFound goBack={handleGoBack} />
+                  </Route>
 
-              </Switch>
-          }
+                </Switch>
+            }
+          </IsButtonDisabledContext.Provider>
         </SavedMoviesContext.Provider>
       </IsLoggedInContext.Provider>
     </CurrentUserContext.Provider>
