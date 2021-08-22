@@ -1,72 +1,56 @@
-[Ссылка на сайт](https://diploma.vkorchevskiy.nomoredomains.monster)
+<h1 align="center">Проект Movies фронтенд</h1> 
 
-# Getting Started with Create React App
+<p align="center">
+    <img alt="Made by: VKorchevskiy" src="https://img.shields.io/badge/Made%20by-VKorchevskiy-informational?style=for-the-badge&logo=appveyor" />
+    <img alt="Stars *" src="https://img.shields.io/github/stars/VKorchevskiy/movies-explorer-frontend?style=for-the-badge&logo=appveyor&color=informational" />
+    <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/VKorchevskiy/movies-explorer-frontend?style=for-the-badge&logo=appveyor&color=informational">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Обзор
 
-## Available Scripts
+Проект предназначен для поиска фильмов и сохранения понравившихся фильмов в своём профиле.
 
-In the project directory, you can run:
+* <a href="#figma">Figma</a>
+* <a href="#page">Страница в интернете</a>
+* <a href="#img">Картинки</a>
+* <a href="#need">Необходимо для работы</a>
+* <a href="#install">Установка</a>
+* <a href="#work">Работа</a>
 
-### `npm start`
+<h3 id="figma">Figma</h3>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  * [Ссылка на макет в Figma](https://www.figma.com/file/4Xi9sPze62JQFrm0CFkLWH/Diploma-(Copy)?node-id=891%3A3857)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h3 id="page">Страница в интернете</h3>
 
-### `npm test`
+  * [Ссылка на страницу.](https://diploma.vkorchevskiy.nomoredomains.monster)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h3 id="img">Картинки</h3>
 
-### `npm run build`
+  Картинки взяты из макета и оптимизированы с помощью [сервиса](https://tinypng.com/), чтобы сайт загружался быстрее.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<h3 id="need">Необходимо для работы</h3>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  * NodeJS & npm;
+  * Git.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h3 id="install">Установка</h3>
 
-### `npm run eject`
+* Склонировать проект на ПК:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+      git clone https://github.com/VKorchevskiy/movies-explorer-frontend.git
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Установить зависимости
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+      npm install
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<h3 id="work">Работа</h3>
 
-## Learn More
+* Запуск демо
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+      npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Для сборки проекта в production
 
-### Code Splitting
+      npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
